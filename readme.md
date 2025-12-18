@@ -1,15 +1,15 @@
 
 
 
-## Super Fun Game 2048
+# Super Fun Game 2048
 
 
-Class et méthodes ::
+## Class et méthodes :
 
-Class Board
+### Class Board
 - [ ] var ArrayArray(Int) = Array.ofDim(4,4);
 
-Méthodes
+## Méthodes
 - [ ] addNewTile // génération automatique de UN 2 (80%) ou rarement UN 4 (20%) en position aléatoire (mais sur une case vide) à chaque clic
 
 - [ ] mooveTiles(direction)={
@@ -32,18 +32,18 @@ Appeller addNewTiles
 - [ ] loooooser() // Afficher Looser
 
 
-Objet Playing
+## Objet Playing
 - [ ] new board + appel 2x new tile
 - [ ] Ecouter les fleches directionnelles et Board.mooveTiles(direction)
 
 
-Idées :
+## Idées :
 - Leaderboard dans fichier texte
 - 1 VS 1
 - Dino -> si loooser // ()
 
 
-A faire : 
+## A faire : 
 - [ ] board de 4x4 stocké dans un tableau 2D
 - [ ] Algorithme de génération automatique de UN 2 ou rarement UN 4 en position aléatoire (mais sur une case vide) à chaque clic
 - [ ] écouter le clavier pour trigger un mouvement au clic des flêches directionnelles
