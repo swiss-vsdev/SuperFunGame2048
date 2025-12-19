@@ -7,21 +7,22 @@ object Playing extends App {
   val windowHeight : Int = 600
   val display : FunGraphics = new FunGraphics(windowWidth, windowHeight)
 
-  /*
-  val game : Array[Array[Int]] = new Board()
-  game.moveTiles()
+
+  val game : Board = new Board()
+
   for(i <- 0 to 1){
     game.addNewTile()
   }
+  /*game.moveTiles()
   while(game.isRunning){
     game.score()
     game.winner()
     game.looooooooooser()
     game.addNewTile()
     game.show()
-  }
+  }*/
 
- */
+
 
 
 
