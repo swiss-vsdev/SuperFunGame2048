@@ -1,5 +1,6 @@
 class Board {
   var mainBoard : Array[Array[Int]] = Array.ofDim(4,4)
+  var scoreValue : Int = 0
 
   def addNewTile() = {
     var rand : Int = (math.random() * 10).toInt
@@ -16,7 +17,7 @@ class Board {
       rand2 = 15
     }
 
-    if( freeSN <= 0){ // Vérifier si c'est possible de faire un moove, dans ce cas pas de looser mais pas de score+ non plus
+    if( freeSN <= 0){ // Vérifier si c'est possible de faire un move, dans ce cas pas de looser mais pas de score+ non plus
       //looooooooooser() // Logique de loose ne devrait pas être ici
     } else {
       var x = getFreeSpacesPosition()(rand2)(0)
@@ -27,28 +28,59 @@ class Board {
     printBoard
   }
 
-  def mooveTiles(direction : Int) = {
+  def moveTiles(direction : Int) = {
     // 0 = bas
     // 1 = gauche
     // 2 = haut
     // 3 = droite
+    for (i <- mainBoard.indices){
+      for (j <- mainBoard(0).indices){
+
+      }
+    }
 
   }
 
-  def score()= {
-
+  def score(): Int = {
+      scoreValue
   }
 
   def show() = {
 
   }
 
-  def winner() ={
+  def winner() = {
+    //Initializing the variable highestValue
+    var highestValue: Int = 0
+    //Navigating the entire ArrayOfDim
+    for (i <- mainBoard.indices) {
+      for (j <- mainBoard(0).indices) {
+        //Writes the highest value of the entire Array in highestValue
+        if (highestValue < mainBoard(i)(j)) highestValue = mainBoard(i)(j)
+      }
+      //Print Winner ! if the highest value of any case is 2048
+      if (highestValue == 2048) println("WINNER !")
+    }
 
   }
+  def looooooooooser(): Boolean = {
+    //Initializing the variable nbrFullCases
+    var nbrFullCases: Int = 0
+    //Navigating the entire ArrayOfDim
+    for (i <- mainBoard.indices) {
+      for (j <- mainBoard(0).indices) {
+        //Counts how many cases are full
+        if (mainBoard(i)(j) != 0) nbrFullCases += 1
+      }
+    }
+    //There are 16 cases. If all of them are full, the player lost
+    if (nbrFullCases == 16) {
+      println("Looooooseeeeeeeeeeeeeeeeeer")
+      return true
+    } else {
+      return false
+    }
 
-  def looooooooooser() ={
-    print("Looooooseeeeeeeeeeeeeeeeeer")
   }
 
   def getFreeSpacesPosition(): Array[Array[Int]] = {
@@ -87,4 +119,8 @@ class Board {
       println(mainBoard(x).mkString("/"))
     }
   }
+
+  def isRunning() : Boolean = {
+    true
+  } //Forcage temporaire de isRunning
 }
