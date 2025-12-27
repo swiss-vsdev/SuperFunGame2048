@@ -34,10 +34,11 @@ object Playing extends App {
   //Creating a new Board for the new game
   val game: Board = new Board()
 
-  //Adding the first 2 tiles
-  for (i <- 0 to 1) {
-    game.addNewTile()
-  }
+  //Adding the first tile
+  game.addNewTile()
+
+  //Drawing Grid
+  game.getGrid()
 
   //Game Loop
   while (game.isRunning) {
