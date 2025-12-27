@@ -7,8 +7,9 @@ object Playing extends App {
   val windowHeight: Int = 600
   val display: FunGraphics = new FunGraphics(windowWidth, windowHeight)
 
-  //Initializing the var for the last typed direction
+  //Initializing the var for the last typed direction and the waiting status for the player input
   var lastDirection: Int = -1
+  var waitingInput : Boolean = true
 
   //Initializing KeyListener that changes the value of lastDirection
   val kl: KeyListener = new KeyListener {
@@ -45,13 +46,21 @@ object Playing extends App {
     if (lastDirection != -1) game.moveTiles(lastDirection)
     game.score()
     game.winner()
-    game.looooooooooser()
     game.addNewTile()
+    game.looooooooooser()
     game.show()
+
     //Reset lastDirection value
     lastDirection = -1
-    //Puts the generation on hold for testing purposes
-    Thread.sleep(1000)
+
+    //Waiting for user input
+    if(lastDirection == -1) {
+    while (waitingInput){
+      if(lastDirection != -1) waitingInput = false
+      Thread.sleep(300)
+    }
+    waitingInput = true
+    }
   }
 
 
