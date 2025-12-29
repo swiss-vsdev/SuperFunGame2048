@@ -37,12 +37,133 @@ class Board {
     // 1 = gauche
     // 2 = haut
     // 3 = droite
+    var xStart : Int = 0;
+    var xEnd : Int = 3;
+    var yStart : Int = 0;
+    var yEnd : Int = 3;
+
+    direction match {
+      case 0 => {// Bas
+        for (i <- 0 to 3){
+          var line : Array[Int] =  Array(mainBoard(3)(i), mainBoard(2)(i), mainBoard(1)(i), mainBoard(0)(i));
+          var newLine = lineProcessor(line)
+          println("Line processed = " + newLine)
+          mainBoard(3)(i) = newLine(0)
+          mainBoard(2)(i) = newLine(1)
+          mainBoard(1)(i) = newLine(2)
+          mainBoard(0)(i) = newLine(3)
+        }
+        //printBoard
+      }
+      case 1 => {// Gauche
+        for (i <- 0 to 3){
+          var line : Array[Int] =  Array(mainBoard(i)(0), mainBoard(i)(1), mainBoard(i)(2), mainBoard(i)(3));
+          var newLine = lineProcessor(line)
+          println("Line processed = " + newLine)
+          mainBoard(i)(0) = newLine(0)
+          mainBoard(i)(1) = newLine(1)
+          mainBoard(i)(2) = newLine(2)
+          mainBoard(i)(3) = newLine(3)
+        }
+      }
+      case 2 => { // Haut
+        for (i <- 0 to 3){
+          var line : Array[Int] =  Array(mainBoard(0)(i), mainBoard(1)(i), mainBoard(2)(i), mainBoard(3)(i));
+          var newLine = lineProcessor(line)
+          println("Line processed = " + newLine)
+          mainBoard(0)(i) = newLine(0)
+          mainBoard(1)(i) = newLine(1)
+          mainBoard(2)(i) = newLine(2)
+          mainBoard(3)(i) = newLine(3)
+        }
+      }
+      case 3 => { // Droite
+        for (i <- 0 to 3){
+          var line : Array[Int] =  Array(mainBoard(i)(3), mainBoard(i)(2), mainBoard(i)(1), mainBoard(i)(0));
+          var newLine = lineProcessor(line)
+          println("Line processed = " + newLine)
+          mainBoard(i)(3) = newLine(0)
+          mainBoard(i)(2) = newLine(1)
+          mainBoard(i)(1) = newLine(2)
+          mainBoard(i)(0) = newLine(3)
+        }
+      }
+    }
+
     for (i <- mainBoard.indices){
       for (j <- mainBoard(0).indices){
 
       }
     }
 
+  }
+
+  def lineProcessor(line : Array[Int]): Array[Int] = {
+    var nbr1 : Int = line(0)
+    var nbr2 : Int = line(1)
+    var nbr3 : Int = line(2)
+    var nbr4 : Int = line(3)
+
+    if (nbr1 == 0 && nbr2 == 0 && nbr3 == 0 && nbr4 == 0){ // Nothing to do
+      return line
+    }
+
+    /*println("Before sticking")
+    println("Nbr1 = " + nbr1)
+    println("Nbr2 = " + nbr2)
+    println("Nbr3 = " + nbr3)
+    println("Nbr4 = " + nbr4)*/
+
+    // Sticking number to each others and to the top
+    for (i <- 0 to 3) {
+      if (nbr1 == 0){
+        nbr1 = nbr2
+        nbr2 = nbr3
+        nbr3 = nbr4
+        nbr4 = 0
+      }
+    }
+    for (i <- 0 to 2) {
+      if (nbr2 == 0){
+        nbr2 = nbr3
+        nbr3 = nbr4
+        nbr4 = 0
+      }
+    }
+    for (i <- 0 to 1) {
+      if (nbr3 == 0){
+        nbr3 = nbr4
+        nbr4 = 0
+      }
+    }
+
+    if(nbr1 != 0 && nbr1 == nbr2){
+      nbr1 = nbr1 + nbr2
+      nbr2 = nbr3
+      nbr3 = nbr4
+      nbr4 = 0
+    }
+    if(nbr2 != 0 && nbr2 == nbr3){
+      nbr2 = nbr2 + nbr3
+      nbr3 = nbr4
+      nbr4 = 0
+    }
+    if(nbr3 != 0 && nbr3 == nbr4){
+      nbr3 = nbr3 + nbr4
+      nbr4 = 0
+    }
+    line(0) = nbr1
+    line(1) = nbr2
+    line(2) = nbr3
+    line(3) = nbr4
+
+    /*println("After sticking")
+    println("Nbr1 = " + nbr1)
+    println("Nbr2 = " + nbr2)
+    println("Nbr3 = " + nbr3)
+    println("Nbr4 = " + nbr4)*/
+
+    return line
   }
 
   def score(): Int = {

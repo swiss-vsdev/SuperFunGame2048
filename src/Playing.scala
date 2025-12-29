@@ -22,6 +22,7 @@ object Playing extends App {
         case 'a' => lastDirection = 1
         case 's' => lastDirection = 0
         case 'd' => lastDirection = 3
+        case _ => ()
       }
     }
 
