@@ -172,7 +172,7 @@ class Board {
 
   def show() = {
     val nbrSize : Int = 40
-    val nbrColor : Color = Color.BLACK
+    val nbrColor : Color = Color.white
     val oneDigitLength1 = 82
     val oneDigitLength2 = 152
     val oneDigitLength3 = 222
@@ -186,25 +186,26 @@ class Board {
     display.clear()
     getGrid()
 
-    display.drawString(nbrCoordinates(mainBoard(0)(0), oneDigitLength1), nbrHeight(mainBoard(0)(0),oneDigitHeight1), s"${mainBoard(0)(0)}", nbrColor, nbrSizeValue(mainBoard(0)(0), nbrSize))
-    display.drawString(nbrCoordinates(mainBoard(0)(1), oneDigitLength2), nbrHeight(mainBoard(0)(1),oneDigitHeight1), s"${mainBoard(0)(1)}", nbrColor, nbrSizeValue(mainBoard(0)(1), nbrSize))
-    display.drawString(nbrCoordinates(mainBoard(0)(2), oneDigitLength3), nbrHeight(mainBoard(0)(2),oneDigitHeight1), s"${mainBoard(0)(2)}", nbrColor, nbrSizeValue(mainBoard(0)(2), nbrSize))
-    display.drawString(nbrCoordinates(mainBoard(0)(3), oneDigitLength4), nbrHeight(mainBoard(0)(3),oneDigitHeight1), s"${mainBoard(0)(3)}", nbrColor, nbrSizeValue(mainBoard(0)(3), nbrSize))
+    if(mainBoard(0)(0)!=0) display.drawString(nbrCoordinates(mainBoard(0)(0), oneDigitLength1), nbrHeight(mainBoard(0)(0),oneDigitHeight1), s"${mainBoard(0)(0)}", nbrColor, nbrSizeValue(mainBoard(0)(0), nbrSize))
+    if(mainBoard(0)(1)!=0) display.drawString(nbrCoordinates(mainBoard(0)(1), oneDigitLength2), nbrHeight(mainBoard(0)(1),oneDigitHeight1), s"${mainBoard(0)(1)}", nbrColor, nbrSizeValue(mainBoard(0)(1), nbrSize))
+    if(mainBoard(0)(2)!=0) display.drawString(nbrCoordinates(mainBoard(0)(2), oneDigitLength3), nbrHeight(mainBoard(0)(2),oneDigitHeight1), s"${mainBoard(0)(2)}", nbrColor, nbrSizeValue(mainBoard(0)(2), nbrSize))
+    if(mainBoard(0)(3)!=0) display.drawString(nbrCoordinates(mainBoard(0)(3), oneDigitLength4), nbrHeight(mainBoard(0)(3),oneDigitHeight1), s"${mainBoard(0)(3)}", nbrColor, nbrSizeValue(mainBoard(0)(3), nbrSize))
 
-    display.drawString(nbrCoordinates(mainBoard(1)(0), oneDigitLength1), nbrHeight(mainBoard(1)(0),oneDigitHeight2), s"${mainBoard(1)(0)}", nbrColor, nbrSizeValue(mainBoard(1)(0), nbrSize))
-    display.drawString(nbrCoordinates(mainBoard(1)(1), oneDigitLength2), nbrHeight(mainBoard(1)(1),oneDigitHeight2), s"${mainBoard(1)(1)}", nbrColor, nbrSizeValue(mainBoard(1)(1), nbrSize))
-    display.drawString(nbrCoordinates(mainBoard(1)(2), oneDigitLength3), nbrHeight(mainBoard(1)(2),oneDigitHeight2), s"${mainBoard(1)(2)}", nbrColor, nbrSizeValue(mainBoard(1)(2), nbrSize))
-    display.drawString(nbrCoordinates(mainBoard(1)(3), oneDigitLength4), nbrHeight(mainBoard(1)(3),oneDigitHeight2), s"${mainBoard(1)(3)}", nbrColor, nbrSizeValue(mainBoard(1)(3), nbrSize))
+    if(mainBoard(1)(0)!=0) display.drawString(nbrCoordinates(mainBoard(1)(0), oneDigitLength1), nbrHeight(mainBoard(1)(0),oneDigitHeight2), s"${mainBoard(1)(0)}", nbrColor, nbrSizeValue(mainBoard(1)(0), nbrSize))
+    if(mainBoard(1)(1)!=0) display.drawString(nbrCoordinates(mainBoard(1)(1), oneDigitLength2), nbrHeight(mainBoard(1)(1),oneDigitHeight2), s"${mainBoard(1)(1)}", nbrColor, nbrSizeValue(mainBoard(1)(1), nbrSize))
+    if(mainBoard(1)(2)!=0) display.drawString(nbrCoordinates(mainBoard(1)(2), oneDigitLength3), nbrHeight(mainBoard(1)(2),oneDigitHeight2), s"${mainBoard(1)(2)}", nbrColor, nbrSizeValue(mainBoard(1)(2), nbrSize))
+    if(mainBoard(1)(3)!=0) display.drawString(nbrCoordinates(mainBoard(1)(3), oneDigitLength4), nbrHeight(mainBoard(1)(3),oneDigitHeight2), s"${mainBoard(1)(3)}", nbrColor, nbrSizeValue(mainBoard(1)(3), nbrSize))
 
-    display.drawString(nbrCoordinates(mainBoard(2)(0), oneDigitLength1), nbrHeight(mainBoard(2)(0),oneDigitHeight3), s"${mainBoard(2)(0)}", nbrColor, nbrSizeValue(mainBoard(2)(0), nbrSize))
-    display.drawString(nbrCoordinates(mainBoard(2)(1), oneDigitLength2), nbrHeight(mainBoard(2)(1),oneDigitHeight3), s"${mainBoard(2)(1)}", nbrColor, nbrSizeValue(mainBoard(2)(1), nbrSize))
-    display.drawString(nbrCoordinates(mainBoard(2)(2), oneDigitLength3), nbrHeight(mainBoard(2)(2),oneDigitHeight3), s"${mainBoard(2)(2)}", nbrColor, nbrSizeValue(mainBoard(2)(2), nbrSize))
-    display.drawString(nbrCoordinates(mainBoard(2)(3), oneDigitLength4), nbrHeight(mainBoard(2)(3),oneDigitHeight3), s"${mainBoard(2)(3)}", nbrColor, nbrSizeValue(mainBoard(2)(3), nbrSize))
+    if(mainBoard(2)(0)!=0) display.drawString(nbrCoordinates(mainBoard(2)(0), oneDigitLength1), nbrHeight(mainBoard(2)(0),oneDigitHeight3), s"${mainBoard(2)(0)}", nbrColor, nbrSizeValue(mainBoard(2)(0), nbrSize))
+    if(mainBoard(2)(1)!=0) display.drawString(nbrCoordinates(mainBoard(2)(1), oneDigitLength2), nbrHeight(mainBoard(2)(1),oneDigitHeight3), s"${mainBoard(2)(1)}", nbrColor, nbrSizeValue(mainBoard(2)(1), nbrSize))
+    if(mainBoard(2)(2)!=0) display.drawString(nbrCoordinates(mainBoard(2)(2), oneDigitLength3), nbrHeight(mainBoard(2)(2),oneDigitHeight3), s"${mainBoard(2)(2)}", nbrColor, nbrSizeValue(mainBoard(2)(2), nbrSize))
+    if(mainBoard(2)(3)!=0)  display.drawString(nbrCoordinates(mainBoard(2)(3), oneDigitLength4), nbrHeight(mainBoard(2)(3),oneDigitHeight3), s"${mainBoard(2)(3)}", nbrColor, nbrSizeValue(mainBoard(2)(3), nbrSize))
 
-    display.drawString(nbrCoordinates(mainBoard(3)(0), oneDigitLength1), nbrHeight(mainBoard(3)(0),oneDigitHeight4), s"${mainBoard(3)(0)}", nbrColor, nbrSizeValue(mainBoard(3)(0), nbrSize))
-    display.drawString(nbrCoordinates(mainBoard(3)(1), oneDigitLength2), nbrHeight(mainBoard(3)(1),oneDigitHeight4), s"${mainBoard(3)(1)}", nbrColor, nbrSizeValue(mainBoard(3)(1), nbrSize))
-    display.drawString(nbrCoordinates(mainBoard(3)(2), oneDigitLength3), nbrHeight(mainBoard(3)(2),oneDigitHeight4), s"${mainBoard(3)(2)}", nbrColor, nbrSizeValue(mainBoard(3)(2), nbrSize))
-    display.drawString(nbrCoordinates(mainBoard(3)(3), oneDigitLength4), nbrHeight(mainBoard(3)(3),oneDigitHeight4), s"${mainBoard(3)(3)}", nbrColor, nbrSizeValue(mainBoard(3)(3), nbrSize))
+    if(mainBoard(3)(0)!=0) display.drawString(nbrCoordinates(mainBoard(3)(0), oneDigitLength1), nbrHeight(mainBoard(3)(0),oneDigitHeight4), s"${mainBoard(3)(0)}", nbrColor, nbrSizeValue(mainBoard(3)(0), nbrSize))
+    if(mainBoard(3)(1)!=0) display.drawString(nbrCoordinates(mainBoard(3)(1), oneDigitLength2), nbrHeight(mainBoard(3)(1),oneDigitHeight4), s"${mainBoard(3)(1)}", nbrColor, nbrSizeValue(mainBoard(3)(1), nbrSize))
+    if(mainBoard(3)(2)!=0) display.drawString(nbrCoordinates(mainBoard(3)(2), oneDigitLength3), nbrHeight(mainBoard(3)(2),oneDigitHeight4), s"${mainBoard(3)(2)}", nbrColor, nbrSizeValue(mainBoard(3)(2), nbrSize))
+    if(mainBoard(3)(3)!=0) display.drawString(nbrCoordinates(mainBoard(3)(3), oneDigitLength4), nbrHeight(mainBoard(3)(3),oneDigitHeight4), s"${mainBoard(3)(3)}", nbrColor, nbrSizeValue(mainBoard(3)(3), nbrSize))
+
 
   }
 
@@ -287,22 +288,42 @@ class Board {
     //Displays the Grid
     display.setColor(Color.BLACK)
     display.drawString(70, 50, "Super Fun 2048", Font.MONOSPACED, Font.BOLD, 30, Color.orange)
-    display.drawRect(65, 200, 60, 60)
-    display.drawRect(135, 200, 60, 60)
-    display.drawRect(205, 200, 60, 60)
-    display.drawRect(275, 200, 60, 60)
-    display.drawRect(65, 270, 60, 60)
-    display.drawRect(135, 270, 60, 60)
-    display.drawRect(205, 270, 60, 60)
-    display.drawRect(275, 270, 60, 60)
-    display.drawRect(65, 340, 60, 60)
-    display.drawRect(135, 340, 60, 60)
-    display.drawRect(205, 340, 60, 60)
-    display.drawRect(275, 340, 60, 60)
-    display.drawRect(65, 410, 60, 60)
-    display.drawRect(135, 410, 60, 60)
-    display.drawRect(205, 410, 60, 60)
-    display.drawRect(275, 410, 60, 60)
+
+    display.setColor(Color.gray)
+    display.drawFillRect(55,190, 290, 290)
+
+    display.setColor(caseColor(mainBoard(0)(0)))
+    display.drawFillRect(65, 200, 60, 60)
+    display.setColor(caseColor(mainBoard(0)(1)))
+    display.drawFillRect(135, 200, 60, 60)
+    display.setColor(caseColor(mainBoard(0)(2)))
+    display.drawFillRect(205, 200, 60, 60)
+    display.setColor(caseColor(mainBoard(0)(3)))
+    display.drawFillRect(275, 200, 60, 60)
+    display.setColor(caseColor(mainBoard(1)(0)))
+    display.drawFillRect(65, 270, 60, 60)
+    display.setColor(caseColor(mainBoard(1)(1)))
+    display.drawFillRect(135, 270, 60, 60)
+    display.setColor(caseColor(mainBoard(1)(2)))
+    display.drawFillRect(205, 270, 60, 60)
+    display.setColor(caseColor(mainBoard(1)(3)))
+    display.drawFillRect(275, 270, 60, 60)
+    display.setColor(caseColor(mainBoard(2)(0)))
+    display.drawFillRect(65, 340, 60, 60)
+    display.setColor(caseColor(mainBoard(2)(1)))
+    display.drawFillRect(135, 340, 60, 60)
+    display.setColor(caseColor(mainBoard(2)(2)))
+    display.drawFillRect(205, 340, 60, 60)
+    display.setColor(caseColor(mainBoard(2)(3)))
+    display.drawFillRect(275, 340, 60, 60)
+    display.setColor(caseColor(mainBoard(3)(0)))
+    display.drawFillRect(65, 410, 60, 60)
+    display.setColor(caseColor(mainBoard(3)(1)))
+    display.drawFillRect(135, 410, 60, 60)
+    display.setColor(caseColor(mainBoard(3)(2)))
+    display.drawFillRect(205, 410, 60, 60)
+    display.setColor(caseColor(mainBoard(3)(3)))
+    display.drawFillRect(275, 410, 60, 60)
 
   }
 
@@ -335,6 +356,23 @@ class Board {
       return oneDigit - 5
     }else{
       return oneDigit
+    }
+  }
+
+  private def caseColor(in : Int): Color = {
+    in match {
+      case 0 => Color.lightGray
+      case 2 => Color.yellow
+      case 4 => Color.orange
+      case 8 => Color.cyan
+      case 16 => Color.blue
+      case 32 => Color.magenta
+      case 64 => Color.pink
+      case 128 => Color.red
+      case 256 => Color.green
+      case 512 => Color.cyan
+      case 1024 => Color.red
+      case 2048 => Color.orange
     }
   }
 }
