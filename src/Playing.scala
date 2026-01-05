@@ -42,26 +42,43 @@ object Playing extends App {
   //Drawing Grid
   game.getGrid()
 
+  var allowedDirections = game.canMove()
+
   //Game Loop
   while (game.isRunning) {
-    if (lastDirection != -1) game.moveTiles(lastDirection)
-    game.score()
-    game.winner()
-    game.addNewTile()
-    game.looooooooooser()
-    game.show()
+    //Tester les 4 directions et bloquer les non authorisées
+
+    println("directions :" + allowedDirections.mkString(" / "))
+
+    if(lastDirection >= 0 && lastDirection <= 4){
+      if(allowedDirections(lastDirection) == true){
+        if (lastDirection != -1) game.moveTiles(lastDirection)
+        //Si aucune direction possible : looser et plus d'actions possibles
+
+        //& if(moveTiles vers direction est authorisé)
+        game.score()
+        game.winner()
+        game.addNewTile()
+        game.show()
+      }
+      allowedDirections = game.canMove()
+      if (allowedDirections.sameElements(Array(false,false,false,false)) == true ){
+        game.looooooooooser()
+      }
+    }
 
     //Reset lastDirection value
     lastDirection = -1
 
     //Waiting for user input
     if(lastDirection == -1) {
-    while (waitingInput){
-      if(lastDirection != -1) waitingInput = false
-      Thread.sleep(300)
+      while (waitingInput){
+        if(lastDirection != -1) waitingInput = false
+        Thread.sleep(300)
+      }
+      waitingInput = true
     }
-    waitingInput = true
-    }
+
   }
 
 

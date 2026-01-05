@@ -29,7 +29,101 @@ class Board {
 
       mainBoard(x)(y) = numToAdd
     }
-    printBoard
+    //printBoard
+  }
+
+  def canMove(): Array[Boolean] = {
+    var direction: Array[Boolean] = Array(false,false,false,false)
+
+    //Bas
+    var compareBoard : Array[Array[Int]] = Array.ofDim(4,4)
+    for (i <- 0 to 3){
+      var line : Array[Int] =  Array(mainBoard(3)(i), mainBoard(2)(i), mainBoard(1)(i), mainBoard(0)(i));
+      var newLine = lineProcessor(line)
+      compareBoard(3)(i) = newLine(0)
+      compareBoard(2)(i) = newLine(1)
+      compareBoard(1)(i) = newLine(2)
+      compareBoard(0)(i) = newLine(3)
+    }
+    if (!compareBoard(0).sameElements(mainBoard(0)) // Si false alors éléments différent donc droit de bouger
+      || !compareBoard(1).sameElements(mainBoard(1))
+      || !compareBoard(2).sameElements(mainBoard(2))
+      || !compareBoard(3).sameElements(mainBoard(3))
+    ){
+      direction(0) = true
+    } else {
+      direction(0) = false
+    }
+
+    compareBoard = Array.ofDim(4,4) // réinitialisation du tableau de comparaison
+
+    //Gauche
+    for (i <- 0 to 3){
+      var line : Array[Int] =  Array(mainBoard(i)(0), mainBoard(i)(1), mainBoard(i)(2), mainBoard(i)(3));
+      var newLine = lineProcessor(line)
+      compareBoard(i)(0) = newLine(0)
+      compareBoard(i)(1) = newLine(1)
+      compareBoard(i)(2) = newLine(2)
+      compareBoard(i)(3) = newLine(3)
+    }
+    if (!compareBoard(0).sameElements(mainBoard(0))
+      || !compareBoard(1).sameElements(mainBoard(1))
+      || !compareBoard(2).sameElements(mainBoard(2))
+      || !compareBoard(3).sameElements(mainBoard(3))
+    ){
+      direction(1) = true
+    } else {
+      direction(1) = false
+    }
+
+    compareBoard = Array.ofDim(4,4)
+
+    //Haut
+    for (i <- 0 to 3){
+      var line : Array[Int] =  Array(mainBoard(0)(i), mainBoard(1)(i), mainBoard(2)(i), mainBoard(3)(i));
+      var newLine = lineProcessor(line)
+      compareBoard(0)(i) = newLine(0)
+      compareBoard(1)(i) = newLine(1)
+      compareBoard(2)(i) = newLine(2)
+      compareBoard(3)(i) = newLine(3)
+    }
+    if (!compareBoard(0).sameElements(mainBoard(0))
+      || !compareBoard(1).sameElements(mainBoard(1))
+      || !compareBoard(2).sameElements(mainBoard(2))
+      || !compareBoard(3).sameElements(mainBoard(3))
+    ){
+      direction(2) = true
+    } else {
+      direction(2) = false
+    }
+
+    compareBoard = Array.ofDim(4,4)
+
+    //Droite
+    for (i <- 0 to 3){
+      var line : Array[Int] =  Array(mainBoard(i)(3), mainBoard(i)(2), mainBoard(i)(1), mainBoard(i)(0));
+      var newLine = lineProcessor(line)
+      compareBoard(i)(3) = newLine(0)
+      compareBoard(i)(2) = newLine(1)
+      compareBoard(i)(1) = newLine(2)
+      compareBoard(i)(0) = newLine(3)
+    }
+    if (!compareBoard(0).sameElements(mainBoard(0))
+      || !compareBoard(1).sameElements(mainBoard(1))
+      || !compareBoard(2).sameElements(mainBoard(2))
+      || !compareBoard(3).sameElements(mainBoard(3))
+    ){
+      direction(3) = true
+    } else {
+      direction(3) = false
+    }
+
+    // Directions :
+    // id 0 = bas
+    // id 1 = gauche
+    // id 2 = haut
+    // id 3 = droite
+    return direction
   }
 
   def moveTiles(direction : Int) = {
