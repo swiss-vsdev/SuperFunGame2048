@@ -78,7 +78,7 @@ class Playing(val display : FunGraphics){
       if (lastDirection == -1) {
         while (waitingInput) {
           if (lastDirection != -1) waitingInput = false
-          Thread.sleep(300)
+          Thread.sleep(3)
         }
         waitingInput = true
       }
