@@ -49,8 +49,8 @@ Appeller addNewTiles
 - [x] écouter le clavier pour trigger un mouvement au clic des flêches directionnelles
 - [ ] afficher le jeu à l’aide de FunGraphics.py
 - [x] lors du mouvement calculer les nouvelles positions ainsi que les merging
-    - [ ] Si le mouvement dans une direction ne permets aucun mouvement ou merging : rien ne se passe (donc pas d'ajout de nouvelle tile aléatoire)
-    - [ ] Vérifier si toutes les cases sont occupées et si aucun merging possible : LOOOOOOOOSER
+    - [x] Si le mouvement dans une direction ne permets aucun mouvement ou merging : rien ne se passe (donc pas d'ajout de nouvelle tile aléatoire)
+    - [x] Vérifier si toutes les cases sont occupées et si aucun merging possible : LOOOOOOOOSER
     - [ ] Si merging : vérifier valeur du merging et BRAVO si 2048
 - [ ] Calcul du score à chaque clic
 - [ ] Affichage du score à l’aide de FunGraphics.py
