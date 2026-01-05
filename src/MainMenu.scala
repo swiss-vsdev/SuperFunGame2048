@@ -2,11 +2,10 @@ import hevs.graphics.FunGraphics
 import java.awt.{Color, Font}
 import java.awt.event.{KeyEvent, KeyListener}
 
-
-object MainMenu extends App {
-  val windowWidth: Int = 400
-  val windowHeight: Int = 600
-  val display: FunGraphics = new FunGraphics(windowWidth, windowHeight)
+class MainMenu (val display : FunGraphics) {
+  //val windowWidth: Int = 400
+  //val windowHeight: Int = 600
+  //val display: FunGraphics = new FunGraphics(windowWidth, windowHeight)
   var lastDirection : Int = -1
   var newIn : Boolean = false
   var menuLoc : Int = 1
@@ -139,24 +138,24 @@ object MainMenu extends App {
   }
 
 
-  //Linking the KeyListener to the FunGraphics Window
-  display.setKeyManager(kl)
-
-
-
-  background()
-  while(true){
-    menuLocWrite()
-    highlightMenu()
-    if(select){
-      menuLoc match {
-        case 1 => {
-          println("Starting Game...")
-        }
-        case 2 => println("Opening Leaderboard...")
-        case 3 => {
-          println("Exiting game...")
-          System.exit(0)
+  def run() : Unit = {
+    display.setKeyManager(kl)
+    background()
+    while (true) {
+      menuLocWrite()
+      highlightMenu()
+      if (select) {
+        menuLoc match {
+          case 1 => {
+            println("Starting Game...")
+            val game : Playing = new Playing(display)
+            game.run
+          }
+          case 2 => println("Opening Leaderboard...")
+          case 3 => {
+            println("Exiting game...")
+            System.exit(0)
+          }
         }
       }
     }

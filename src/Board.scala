@@ -1,8 +1,8 @@
-import Playing.display
+import hevs.graphics.FunGraphics
 import java.awt.Color
 import java.awt.Font
 
-class Board {
+class Board (val display : FunGraphics) {
   var mainBoard : Array[Array[Int]] = Array.ofDim(4,4)
   var scoreValue : Int = 0
 

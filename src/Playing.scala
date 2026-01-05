@@ -1,11 +1,11 @@
 import hevs.graphics.FunGraphics
 import java.awt.event.{KeyEvent, KeyListener}
 
-object Playing extends App {
+class Playing(val display : FunGraphics){
   //Creates the FunGraphics Window
-  val windowWidth: Int = 400
-  val windowHeight: Int = 600
-  val display: FunGraphics = new FunGraphics(windowWidth, windowHeight)
+  //val windowWidth: Int = 400
+  //val windowHeight: Int = 600
+  //val display: FunGraphics = new FunGraphics(windowWidth, windowHeight)
 
   //Initializing the var for the last typed direction and the waiting status for the player input
   var lastDirection: Int = -1
@@ -30,56 +30,60 @@ object Playing extends App {
     }
   }
 
-  //Linking the KeyListener to the FunGraphics Window
-  display.setKeyManager(kl)
+  def run() : Unit = {
+    display.clear()
+    //Linking the KeyListener to the FunGraphics Window
+    display.setKeyManager(kl)
 
-  //Creating a new Board for the new game
-  val game: Board = new Board()
+    //Creating a new Board for the new game
+    val game: Board = new Board(display)
 
-  //Adding the first tile
-  game.addNewTile()
+    //Adding the first tile
+    game.addNewTile()
 
-  //Drawing Grid
-  game.getGrid()
+    //Drawing Grid
+    game.getGrid()
+    game.show()
 
-  var allowedDirections = game.canMove()
+    var allowedDirections = game.canMove()
 
-  //Game Loop
-  while (game.isRunning) {
-    //Tester les 4 directions et bloquer les non authorisées
+    //Game Loop
+    while (game.isRunning) {
 
-    println("directions :" + allowedDirections.mkString(" / "))
+      //Tester les 4 directions et bloquer les non authorisées
 
-    if(lastDirection >= 0 && lastDirection <= 4){
-      if(allowedDirections(lastDirection) == true){
-        if (lastDirection != -1) game.moveTiles(lastDirection)
-        //Si aucune direction possible : looser et plus d'actions possibles
+      println("directions :" + allowedDirections.mkString(" / "))
 
-        //& if(moveTiles vers direction est authorisé)
-        game.score()
-        game.winner()
-        game.addNewTile()
-        game.show()
+      if (lastDirection >= 0 && lastDirection <= 4) {
+        if (allowedDirections(lastDirection) == true) {
+          if (lastDirection != -1) game.moveTiles(lastDirection)
+          //Si aucune direction possible : looser et plus d'actions possibles
+
+          //& if(moveTiles vers direction est authorisé)
+          game.score()
+          game.winner()
+          game.addNewTile()
+          game.show()
+        }
+        allowedDirections = game.canMove()
+        if (allowedDirections.sameElements(Array(false, false, false, false)) == true) {
+          game.looooooooooser()
+        }
       }
-      allowedDirections = game.canMove()
-      if (allowedDirections.sameElements(Array(false,false,false,false)) == true ){
-        game.looooooooooser()
-      }
-    }
 
-    //Reset lastDirection value
-    lastDirection = -1
+      //Reset lastDirection value
+      lastDirection = -1
 
-    //Waiting for user input
-    if(lastDirection == -1) {
-      while (waitingInput){
-        if(lastDirection != -1) waitingInput = false
-        Thread.sleep(300)
+      //Waiting for user input
+      if (lastDirection == -1) {
+        while (waitingInput) {
+          if (lastDirection != -1) waitingInput = false
+          Thread.sleep(300)
+        }
+        waitingInput = true
       }
-      waitingInput = true
+
     }
 
   }
-
-
 }
