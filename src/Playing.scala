@@ -27,6 +27,7 @@ class Playing(val display : FunGraphics){
     }
 
     override def keyReleased(e: KeyEvent): Unit = {
+
     }
   }
 
@@ -37,6 +38,8 @@ class Playing(val display : FunGraphics){
 
     //Creating a new Board for the new game
     val game: Board = new Board(display)
+
+    game.askUsername()
 
     //Adding the first tile
     game.addNewTile()

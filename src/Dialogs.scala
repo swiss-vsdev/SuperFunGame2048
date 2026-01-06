@@ -27,6 +27,21 @@ object Dialogs {
     else getHiddenString("Enter at least one character")
   }
 
+  def getString(message: String): String = {
+    val frame = new JFrame(message)
+    // prompt the user to enter their name
+    try{
+      val s = JOptionPane.showInputDialog(frame, message)
+      if (s.length > 0) s
+      else getString("Enter at least one character")
+    } catch {
+      case e : Exception =>
+        Start.mainMenu.run()
+        ""
+    }
+
+  }
+
   /**
    * This function open a dialog box to enter a character. This function
    * accepts only one character.

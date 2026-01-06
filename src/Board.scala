@@ -5,6 +5,7 @@ import java.awt.Font
 class Board (val display : FunGraphics) {
   var mainBoard : Array[Array[Int]] = Array.ofDim(4,4)
   var scoreValue : Int = 0
+  var username : String = ""
 
   def addNewTile() = {
     var rand : Int = (math.random() * 10).toInt
@@ -468,5 +469,11 @@ class Board (val display : FunGraphics) {
       case 1024 => Color.red
       case 2048 => Color.orange
     }
+  }
+
+  def askUsername() : String = {
+    username = Dialogs.getString("Type your username")
+    println(s"Hi $username !")
+    username
   }
 }

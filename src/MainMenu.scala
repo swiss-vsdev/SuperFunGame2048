@@ -7,7 +7,7 @@ class MainMenu (val display : FunGraphics) {
   //val windowHeight: Int = 600
   //val display: FunGraphics = new FunGraphics(windowWidth, windowHeight)
   var lastDirection : Int = -1
-  var newIn : Boolean = false
+  var newIn : Boolean = _
   var menuLoc : Int = 1
   var select : Boolean = false
 
@@ -26,6 +26,15 @@ class MainMenu (val display : FunGraphics) {
         case ' ' => select = true
         case _ => ()
       }
+      /*
+            e.getKeyCode match {
+              case 27 => {
+                Thread.sleep(300)
+                println("Returning to menu")
+                Start.mainMenu.run
+        }
+        case _ => ()
+      }*/
     }
 
     override def keyReleased(e: KeyEvent): Unit = {
@@ -134,14 +143,20 @@ class MainMenu (val display : FunGraphics) {
       case 1 => playSelected()
       case 2 => leaderBoardSelected()
       case 3 => quitSelected()
+      case _ => ()
     }
   }
 
 
   def run() : Unit = {
+    var menuOpen = true
+
+    display.clear()
+
     display.setKeyManager(kl)
+
     background()
-    while (true) {
+    while (menuOpen) {
       menuLocWrite()
       highlightMenu()
       if (select) {
@@ -149,9 +164,17 @@ class MainMenu (val display : FunGraphics) {
           case 1 => {
             println("Starting Game...")
             val game : Playing = new Playing(display)
+            select = false
+            menuOpen = false
             game.run
           }
-          case 2 => println("Opening Leaderboard...")
+          case 2 => {
+            println("Opening Leaderboard...")
+            val lb : Leaderboard = new Leaderboard(display)
+            select = false
+            menuOpen = false
+            lb.run
+          }
           case 3 => {
             println("Exiting game...")
             System.exit(0)
@@ -160,7 +183,4 @@ class MainMenu (val display : FunGraphics) {
       }
     }
   }
-
-
-
 }
