@@ -238,17 +238,20 @@ class Board (val display : FunGraphics) {
 
     if(nbr1 != 0 && nbr1 == nbr2){
       nbr1 = nbr1 + nbr2
+      scoreValue += nbr1 + nbr2
       nbr2 = nbr3
       nbr3 = nbr4
       nbr4 = 0
     }
     if(nbr2 != 0 && nbr2 == nbr3){
       nbr2 = nbr2 + nbr3
+      scoreValue += nbr2 + nbr2
       nbr3 = nbr4
       nbr4 = 0
     }
     if(nbr3 != 0 && nbr3 == nbr4){
       nbr3 = nbr3 + nbr4
+      scoreValue += nbr3 + nbr4
       nbr4 = 0
     }
     line(0) = nbr1
