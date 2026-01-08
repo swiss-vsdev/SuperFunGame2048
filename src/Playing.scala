@@ -1,28 +1,30 @@
 import Start.lastDirection
 import hevs.graphics.FunGraphics
 import Dialogs.noAnswer
-import java.awt.event.{KeyEvent, KeyListener}
 
-class Playing(val display : FunGraphics){
+import java.awt.event.{KeyEvent, KeyListener}
+import java.io.File
+import javax.sound.sampled.AudioSystem
+
+class Playing(val display: FunGraphics) {
   //Creates the FunGraphics Window
   //val windowWidth: Int = 400
   //val windowHeight: Int = 600
   //val display: FunGraphics = new FunGraphics(windowWidth, windowHeight)
 
   //Initializing the var for the waiting status for the player input
-  var waitingInput : Boolean = true
-  var looser : Boolean = false
+  var waitingInput: Boolean = true
+  var looser: Boolean = false
 
 
-  def run() : Unit = {
+  def run(): Unit = {
     display.clear()
-
 
     //Creating a new Board for the new game
     val game: Board = new Board(display)
 
     game.askUsername()
-    if(Dialogs.noAnswer) return
+    if (Dialogs.noAnswer) return
 
     //Adding the first tile
     game.addNewTile()
@@ -35,6 +37,12 @@ class Playing(val display : FunGraphics){
 
     //Game Loop
     while (game.isRunning) {
+
+      val musicfile = new File("./src/bubble.wav")
+      val clip = AudioSystem.getClip()
+      val audio = AudioSystem.getAudioInputStream(musicfile)
+      clip.open(audio)
+      clip.start()
 
       //Tester les 4 directions et bloquer les non authorisées
 
@@ -70,8 +78,7 @@ class Playing(val display : FunGraphics){
         }
         waitingInput = true
       }
-
+      clip.stop()
     }
-
   }
 }

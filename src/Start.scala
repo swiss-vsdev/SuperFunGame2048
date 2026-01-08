@@ -2,10 +2,6 @@ import hevs.graphics.FunGraphics
 import java.awt.event.{KeyEvent, KeyListener}
 
 object Start extends App {
-  var lastDirection = -1
-  var select = false
-  var newIn = false
-
   val kl: KeyListener = new KeyListener {
     override def keyTyped(e: KeyEvent): Unit = {
       newIn = true
@@ -35,10 +31,12 @@ object Start extends App {
 
     }
   }
-
   val display = new FunGraphics(400, 600)
-  display.setKeyManager(kl)
   val mainMenu = new MainMenu(display)
+  var lastDirection = -1
+  var select = false
+  display.setKeyManager(kl)
+  var newIn = false
   mainMenu.run()
 
 }

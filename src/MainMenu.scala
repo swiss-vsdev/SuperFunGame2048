@@ -5,8 +5,8 @@ import java.awt.{Color, Font}
 import java.awt.event.{KeyEvent, KeyListener}
 
 class MainMenu(val display: FunGraphics) {
-  var menuLoc: Int = 1
   val lb: Leaderboard = new Leaderboard(display)
+  var menuLoc: Int = 1
   /*Initializing KeyListener that changes the value of lastDirection
   val kl: KeyListener = new KeyListener {
     override def keyTyped(e: KeyEvent): Unit = {
