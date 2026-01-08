@@ -63,7 +63,7 @@ class Leaderboard (val display : FunGraphics){
         nbrCnt += 1
       }
       if(i%2 != 0) {
-        display.drawString(270, (120 + (i * 20)), s"${outArray(i)}", Font.MONOSPACED, Font.BOLD, 20, Color.black)
+        if(outArray(i) != "0")display.drawString(270, (120 + (i * 20)), s"${outArray(i)}", Font.MONOSPACED, Font.BOLD, 20, Color.black)
       }
     }
     nbrCnt = 1

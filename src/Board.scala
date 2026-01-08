@@ -332,6 +332,7 @@ class Board (val display : FunGraphics) {
     display.clear()
     val gb = new GraphicsBitmap("/looser.jpg")
     display.drawPicture(200,300,gb)
+    display.drawString(130, 550, s"Score : $scoreValue", Font.MONOSPACED, Font.BOLD, 30, Color.white)
     Thread.sleep(1000)
     display.drawString(10,20, "Press [Esc] key to leave the game", Font.MONOSPACED, Font.BOLD, 15, Color.black)
 
