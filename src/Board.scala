@@ -466,17 +466,18 @@ class Board (val display : FunGraphics) {
   private def caseColor(in : Int): Color = {
     in match {
       case 0 => Color.lightGray
-      case 2 => Color.yellow
-      case 4 => Color.orange
-      case 8 => Color.cyan
-      case 16 => Color.blue
-      case 32 => Color.magenta
-      case 64 => Color.pink
-      case 128 => Color.red
-      case 256 => Color.green
-      case 512 => Color.cyan
-      case 1024 => Color.red
-      case 2048 => Color.orange
+      case 2 => new Color(227, 184, 43)
+      case 4 => new Color(227, 166, 43)
+      case 8 => new Color(227, 110, 43)
+      case 16 => new Color(227, 80, 43)
+      case 32 => new Color(227, 43, 43)
+      case 64 => new Color(227, 43, 83)
+      case 128 => new Color(227, 43, 163)
+      case 256 => new Color(227, 43, 209)
+      case 512 => new Color(175, 43, 227)
+      case 1024 => new Color(104, 43, 227)
+      case 2048 => new Color(55, 43, 227)
+      case 5096 => new Color(43, 117, 227)
     }
   }
 
