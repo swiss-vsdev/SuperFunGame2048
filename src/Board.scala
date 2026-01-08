@@ -1,6 +1,10 @@
 import hevs.graphics.FunGraphics
+import hevs.graphics.utils.GraphicsBitmap
+
 import java.awt.Color
 import java.awt.Font
+import java.awt.image.BufferedImage
+import java.io.{BufferedReader, FileReader}
 
 class Board (val display : FunGraphics) {
   var mainBoard : Array[Array[Int]] = Array.ofDim(4,4)
@@ -315,6 +319,8 @@ class Board (val display : FunGraphics) {
       }
       //Print Winner ! if the highest value of any case is 2048
       if (highestValue == 2048) println("WINNER !")
+      val gb = new GraphicsBitmap("/winner.jpg")
+      display.drawPicture(200,300,gb)
     }
 
   }
@@ -331,6 +337,9 @@ class Board (val display : FunGraphics) {
     //There are 16 cases. If all of them are full, the player lost
     if (nbrFullCases == 16) {
       println("Looooooseeeeeeeeeeeeeeeeeer")
+      display.clear()
+      val gb = new GraphicsBitmap("/looser.jpg")
+      display.drawPicture(200,300,gb)
       return true
     } else {
       return false

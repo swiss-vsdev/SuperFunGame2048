@@ -17,6 +17,7 @@ class Playing(val display : FunGraphics){
   def run() : Unit = {
     display.clear()
 
+
     //Creating a new Board for the new game
     val game: Board = new Board(display)
 
