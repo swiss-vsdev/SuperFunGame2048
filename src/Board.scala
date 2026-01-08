@@ -44,7 +44,7 @@ class Board (val display : FunGraphics) {
     var compareBoard : Array[Array[Int]] = Array.ofDim(4,4)
     for (i <- 0 to 3){
       var line : Array[Int] =  Array(mainBoard(3)(i), mainBoard(2)(i), mainBoard(1)(i), mainBoard(0)(i));
-      var newLine = lineProcessor(line)
+      var newLine = lineProcessor(line, false)
       compareBoard(3)(i) = newLine(0)
       compareBoard(2)(i) = newLine(1)
       compareBoard(1)(i) = newLine(2)
@@ -65,7 +65,7 @@ class Board (val display : FunGraphics) {
     //Gauche
     for (i <- 0 to 3){
       var line : Array[Int] =  Array(mainBoard(i)(0), mainBoard(i)(1), mainBoard(i)(2), mainBoard(i)(3));
-      var newLine = lineProcessor(line)
+      var newLine = lineProcessor(line, false)
       compareBoard(i)(0) = newLine(0)
       compareBoard(i)(1) = newLine(1)
       compareBoard(i)(2) = newLine(2)
@@ -86,7 +86,7 @@ class Board (val display : FunGraphics) {
     //Haut
     for (i <- 0 to 3){
       var line : Array[Int] =  Array(mainBoard(0)(i), mainBoard(1)(i), mainBoard(2)(i), mainBoard(3)(i));
-      var newLine = lineProcessor(line)
+      var newLine = lineProcessor(line, false)
       compareBoard(0)(i) = newLine(0)
       compareBoard(1)(i) = newLine(1)
       compareBoard(2)(i) = newLine(2)
@@ -107,7 +107,7 @@ class Board (val display : FunGraphics) {
     //Droite
     for (i <- 0 to 3){
       var line : Array[Int] =  Array(mainBoard(i)(3), mainBoard(i)(2), mainBoard(i)(1), mainBoard(i)(0));
-      var newLine = lineProcessor(line)
+      var newLine = lineProcessor(line, false)
       compareBoard(i)(3) = newLine(0)
       compareBoard(i)(2) = newLine(1)
       compareBoard(i)(1) = newLine(2)
@@ -145,7 +145,7 @@ class Board (val display : FunGraphics) {
       case 0 => {// Bas
         for (i <- 0 to 3){
           var line : Array[Int] =  Array(mainBoard(3)(i), mainBoard(2)(i), mainBoard(1)(i), mainBoard(0)(i));
-          var newLine = lineProcessor(line)
+          var newLine = lineProcessor(line, true)
           println("Line processed = " + newLine)
           mainBoard(3)(i) = newLine(0)
           mainBoard(2)(i) = newLine(1)
@@ -157,7 +157,7 @@ class Board (val display : FunGraphics) {
       case 1 => {// Gauche
         for (i <- 0 to 3){
           var line : Array[Int] =  Array(mainBoard(i)(0), mainBoard(i)(1), mainBoard(i)(2), mainBoard(i)(3));
-          var newLine = lineProcessor(line)
+          var newLine = lineProcessor(line, true)
           println("Line processed = " + newLine)
           mainBoard(i)(0) = newLine(0)
           mainBoard(i)(1) = newLine(1)
@@ -168,7 +168,7 @@ class Board (val display : FunGraphics) {
       case 2 => { // Haut
         for (i <- 0 to 3){
           var line : Array[Int] =  Array(mainBoard(0)(i), mainBoard(1)(i), mainBoard(2)(i), mainBoard(3)(i));
-          var newLine = lineProcessor(line)
+          var newLine = lineProcessor(line, true)
           println("Line processed = " + newLine)
           mainBoard(0)(i) = newLine(0)
           mainBoard(1)(i) = newLine(1)
@@ -179,7 +179,7 @@ class Board (val display : FunGraphics) {
       case 3 => { // Droite
         for (i <- 0 to 3){
           var line : Array[Int] =  Array(mainBoard(i)(3), mainBoard(i)(2), mainBoard(i)(1), mainBoard(i)(0));
-          var newLine = lineProcessor(line)
+          var newLine = lineProcessor(line, true)
           println("Line processed = " + newLine)
           mainBoard(i)(3) = newLine(0)
           mainBoard(i)(2) = newLine(1)
@@ -197,7 +197,7 @@ class Board (val display : FunGraphics) {
 
   }
 
-  def lineProcessor(line : Array[Int]): Array[Int] = {
+  def lineProcessor(line : Array[Int], scoring: Boolean): Array[Int] = {
     var nbr1 : Int = line(0)
     var nbr2 : Int = line(1)
     var nbr3 : Int = line(2)
@@ -238,20 +238,26 @@ class Board (val display : FunGraphics) {
 
     if(nbr1 != 0 && nbr1 == nbr2){
       nbr1 = nbr1 + nbr2
-      scoreValue += nbr1 + nbr2
+      if(scoring){
+        scoreValue += nbr1
+      }
       nbr2 = nbr3
       nbr3 = nbr4
       nbr4 = 0
     }
     if(nbr2 != 0 && nbr2 == nbr3){
       nbr2 = nbr2 + nbr3
-      scoreValue += nbr2 + nbr2
+      if(scoring){
+        scoreValue += nbr2
+      }
       nbr3 = nbr4
       nbr4 = 0
     }
     if(nbr3 != 0 && nbr3 == nbr4){
       nbr3 = nbr3 + nbr4
-      scoreValue += nbr3 + nbr4
+      if(scoring) {
+        scoreValue += nbr3
+      }
       nbr4 = 0
     }
     line(0) = nbr1
