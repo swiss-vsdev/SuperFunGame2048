@@ -3,7 +3,6 @@ import java.awt.{Color, Font}
 import java.io.{BufferedReader, FileNotFoundException, FileReader, FileOutputStream, PrintWriter}
 
 class Leaderboard (val display : FunGraphics){
-  var lines : Array[String] = Array.empty
 
   def run() : Unit = {
 
@@ -32,28 +31,27 @@ class Leaderboard (val display : FunGraphics){
         val score: String = scores(i)
         println(s"User : $username Score : $score")
 
-        if(score.toInt>score1.toInt){
+        if(score.toInt>=score1.toInt){
           user1 = username
           score1 = score
-        }else if(score.toInt>score2.toInt){
+        }else if(score.toInt>=score2.toInt){
           user2 = username
           score2 = score
-        }else if(score.toInt>score3.toInt){
+        }else if(score.toInt>=score3.toInt){
           user3 = username
           score3 = score
-        }else if(score.toInt>score4.toInt){
+        }else if(score.toInt>=score4.toInt){
           user4 = username
           score4 = score
-        }else if(score.toInt>score4.toInt){
+        }else if(score.toInt>=score4.toInt){
           user5 = username
           score5 = score
         }
+        outString = s"$user1;$score1;$user2;$score2;$user3;$score3;$user4;$score4;$user5;$score5"
+        println(outString)
       }
-      outString = s"$user1;$score1;$user2;$score2;$user3;$score3;$user4;$score4;$user5;$score5"
-      println(outString)
     }
   }
-    outString = s"$user1;$score1;$user2;$score2;$user3;$score3;$user4;$score4;$user5;$score5"
 
     display.drawString(60, 100, firstLine, Font.MONOSPACED, Font.BOLD, 20, Color.black)
     println(outString)

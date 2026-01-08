@@ -1,6 +1,6 @@
 import hevs.graphics.FunGraphics
 import hevs.graphics.utils.GraphicsBitmap
-
+import Start.mainMenu
 import java.awt.Color
 import java.awt.Font
 import java.awt.image.BufferedImage
@@ -318,9 +318,11 @@ class Board (val display : FunGraphics) {
         if (highestValue < mainBoard(i)(j)) highestValue = mainBoard(i)(j)
       }
       //Print Winner ! if the highest value of any case is 2048
-      if (highestValue == 2048) println("WINNER !")
-      val gb = new GraphicsBitmap("/winner.jpg")
-      display.drawPicture(200,300,gb)
+      if (highestValue == 2048) {
+        println("WINNER !")
+        val gb = new GraphicsBitmap("/winner.jpg")
+        display.drawPicture(200,300,gb)
+      }
     }
 
   }
@@ -337,6 +339,7 @@ class Board (val display : FunGraphics) {
     //There are 16 cases. If all of them are full, the player lost
     if (nbrFullCases == 16) {
       println("Looooooseeeeeeeeeeeeeeeeeer")
+      mainMenu.lb.writefile(username, scoreValue)
       display.clear()
       val gb = new GraphicsBitmap("/looser.jpg")
       display.drawPicture(200,300,gb)
@@ -392,6 +395,11 @@ class Board (val display : FunGraphics) {
     //Displays the Grid
     display.setColor(Color.BLACK)
     display.drawString(70, 50, "Super Fun 2048", Font.MONOSPACED, Font.BOLD, 30, Color.orange)
+
+    display.setColor(Color.lightGray)
+    display.drawFillRect(150,100,100,50)
+    display.drawString(155,115, "Score", Font.MONOSPACED, Font.BOLD, 15, Color.white)
+    display.drawString(155,140,scoreValue.toString,Font.MONOSPACED, Font.BOLD, 20, Color.black)
 
     display.setColor(Color.gray)
     display.drawFillRect(55,190, 290, 290)
