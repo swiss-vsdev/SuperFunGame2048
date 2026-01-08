@@ -2,9 +2,17 @@ import hevs.graphics.FunGraphics
 import java.awt.event.{KeyEvent, KeyListener}
 
 object Start extends App {
+
+  val display = new FunGraphics(400, 600, "Super Fun 2048")
+  val mainMenu = new MainMenu(display)
+  var lastDirection = -1
+  var select = false
+  var newIn = false
+
   val kl: KeyListener = new KeyListener {
     override def keyTyped(e: KeyEvent): Unit = {
       newIn = true
+      println("hello")
     }
 
     override def keyPressed(e: KeyEvent): Unit = {
@@ -23,17 +31,13 @@ object Start extends App {
         case _ => ()
       }
     }
+
     override def keyReleased(e: KeyEvent): Unit = {
     }
   }
 
-  val display = new FunGraphics(400, 600, "Super Fun 2048")
-  val mainMenu = new MainMenu(display)
-  var lastDirection = -1
-  var select = false
-
   display.setKeyManager(kl)
-  var newIn = false
+  newIn = false
 
   mainMenu.run()
 }

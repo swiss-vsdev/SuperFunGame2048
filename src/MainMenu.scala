@@ -1,9 +1,9 @@
-import Start.{lastDirection, newIn, select}
 import hevs.graphics.FunGraphics
 import hevs.graphics.utils.GraphicsBitmap
 import java.awt.{Color, Font}
 import java.io.File
 import javax.sound.sampled.AudioSystem
+import Start.{lastDirection, newIn, select}
 
 class MainMenu(val display: FunGraphics) {
   val lb: Leaderboard = new Leaderboard(display)

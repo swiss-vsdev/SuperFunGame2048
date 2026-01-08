@@ -1,6 +1,5 @@
 import hevs.graphics.FunGraphics
 import hevs.graphics.utils.GraphicsBitmap
-import Start.mainMenu
 import java.awt.Color
 import java.awt.Font
 import javax.sound.sampled.AudioSystem
@@ -477,7 +476,8 @@ class Board(val display: FunGraphics) {
   }
 
   def looooooooooser() = {
-    mainMenu.lb.writefile(username, scoreValue)
+    val lbwrite = new Leaderboard(display)
+    lbwrite.writefile(username, scoreValue)
     display.clear()
     val gb = new GraphicsBitmap("/looser.jpg")
     display.drawPicture(200, 300, gb)
