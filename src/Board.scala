@@ -267,7 +267,8 @@ class Board(val display: FunGraphics) {
       }
     }
 
-    if (nbr1 != 0 && nbr1 == nbr2) {
+    //merging the numbers
+    if(nbr1 != 0 && nbr1 == nbr2){
       nbr1 = nbr1 + nbr2
       if (scoring) {
         scoreValue += nbr1
