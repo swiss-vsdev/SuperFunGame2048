@@ -10,6 +10,7 @@ class Board (val display : FunGraphics) {
   var mainBoard : Array[Array[Int]] = Array.ofDim(4,4)
   var scoreValue : Int = 0
   var username : String = ""
+  var isAWinner : Boolean = false
 
   def addNewTile() = {
     var rand : Int = (math.random() * 10).toInt
@@ -327,36 +328,25 @@ class Board (val display : FunGraphics) {
         if (highestValue < mainBoard(i)(j)) highestValue = mainBoard(i)(j)
       }
       //Print Winner ! if the highest value of any case is 2048
-      if (highestValue == 2048) {
+      if (highestValue == 2048 && isAWinner == false) {
+        isAWinner = true
         println("WINNER !")
         val gb = new GraphicsBitmap("/winner.jpg")
         display.drawPicture(200,300,gb)
+        Thread.sleep(2000)
       }
     }
 
   }
-  def looooooooooser(): Boolean = {
-    //Initializing the variable nbrFullCases
-    var nbrFullCases: Int = 0
-    //Navigating the entire ArrayOfDim
-    for (i <- mainBoard.indices) {
-      for (j <- mainBoard(0).indices) {
-        //Counts how many cases are full
-        if (mainBoard(i)(j) != 0) nbrFullCases += 1
-      }
-    }
-    //There are 16 cases. If all of them are full, the player lost
-    if (nbrFullCases == 16) {
-      println("Looooooseeeeeeeeeeeeeeeeeer")
-      mainMenu.lb.writefile(username, scoreValue)
-      display.clear()
-      val gb = new GraphicsBitmap("/looser.jpg")
-      display.drawPicture(200,300,gb)
-      display.drawString(130, 550, s"Score : $scoreValue", Font.MONOSPACED, Font.BOLD, 30, Color.white)
-      return true
-    } else {
-      return false
-    }
+
+  def looooooooooser() = {
+    mainMenu.lb.writefile(username, scoreValue)
+    display.clear()
+    val gb = new GraphicsBitmap("/looser.jpg")
+    display.drawPicture(200,300,gb)
+    display.drawString(130, 550, s"Score : $scoreValue", Font.MONOSPACED, Font.BOLD, 30, Color.white)
+    Thread.sleep(1000)
+    display.drawString(10,20, "Press [Esc] key to leave the game", Font.MONOSPACED, Font.BOLD, 15, Color.black)
 
   }
 
@@ -494,8 +484,17 @@ class Board (val display : FunGraphics) {
       case 256 => new Color(227, 43, 209)
       case 512 => new Color(175, 43, 227)
       case 1024 => new Color(104, 43, 227)
-      case 2048 => new Color(55, 43, 227)
-      case 5096 => new Color(43, 117, 227)
+      case 2048 => new Color(0, 0, 0)
+      case 4096 => new Color(255, 0, 0)
+      case 8192 => new Color(0, 255, 0)
+      case 16384 => new Color(0, 0, 255)
+      case 32768 => new Color(43, 117, 227)
+      case 65536 => new Color(43, 117, 227)
+      case 131072 => new Color(43, 117, 227)
+      case 262144 => new Color(43, 117, 227)
+      case 524288 => new Color(43, 117, 227)
+      case 1048576 => new Color(43, 117, 227)
+      case 2097152 => new Color(43, 117, 227)
     }
   }
 
