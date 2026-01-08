@@ -1,4 +1,6 @@
+import Start.lastDirection
 import hevs.graphics.FunGraphics
+
 import java.awt.event.{KeyEvent, KeyListener}
 
 class Playing(val display : FunGraphics){
@@ -7,34 +9,13 @@ class Playing(val display : FunGraphics){
   //val windowHeight: Int = 600
   //val display: FunGraphics = new FunGraphics(windowWidth, windowHeight)
 
-  //Initializing the var for the last typed direction and the waiting status for the player input
-  var lastDirection: Int = -1
+  //Initializing the var for the waiting status for the player input
   var waitingInput : Boolean = true
 
-  //Initializing KeyListener that changes the value of lastDirection
-  val kl: KeyListener = new KeyListener {
-    override def keyTyped(e: KeyEvent): Unit = {
-    }
 
-    override def keyPressed(e: KeyEvent): Unit = {
-      e.getKeyChar match {
-        case 'w' => lastDirection = 2
-        case 'a' => lastDirection = 1
-        case 's' => lastDirection = 0
-        case 'd' => lastDirection = 3
-        case _ => ()
-      }
-    }
-
-    override def keyReleased(e: KeyEvent): Unit = {
-
-    }
-  }
 
   def run() : Unit = {
     display.clear()
-    //Linking the KeyListener to the FunGraphics Window
-    display.setKeyManager(kl)
 
     //Creating a new Board for the new game
     val game: Board = new Board(display)

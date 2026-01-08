@@ -1,23 +1,20 @@
+import Start.{lastDirection, newIn, select}
 import hevs.graphics.FunGraphics
+
 import java.awt.{Color, Font}
 import java.awt.event.{KeyEvent, KeyListener}
 
-class MainMenu (val display : FunGraphics) {
-  //val windowWidth: Int = 400
-  //val windowHeight: Int = 600
-  //val display: FunGraphics = new FunGraphics(windowWidth, windowHeight)
-  var lastDirection : Int = -1
-  var newIn : Boolean = _
-  var menuLoc : Int = 1
-  var select : Boolean = false
-
-  //Initializing KeyListener that changes the value of lastDirection
+class MainMenu(val display: FunGraphics) {
+  var menuLoc: Int = 1
+  var firstRun: Boolean = true
+  /*Initializing KeyListener that changes the value of lastDirection
   val kl: KeyListener = new KeyListener {
     override def keyTyped(e: KeyEvent): Unit = {
       newIn = true
     }
 
     override def keyPressed(e: KeyEvent): Unit = {
+      println("Coucou")
       e.getKeyChar match {
         case 'w' => lastDirection = 2
         case 'a' => lastDirection = 1
@@ -26,22 +23,95 @@ class MainMenu (val display : FunGraphics) {
         case ' ' => select = true
         case _ => ()
       }
-      /*
-            e.getKeyCode match {
-              case 27 => {
-                Thread.sleep(300)
-                println("Returning to menu")
-                Start.mainMenu.run
+      e.getKeyCode match {
+        case 27 => {
+          Thread.sleep(300)
+          println("Returning to menu")
+          run()
         }
         case _ => ()
-      }*/
+      }
     }
 
     override def keyReleased(e: KeyEvent): Unit = {
     }
   }
 
-  def playSelected() : Unit = {
+   */
+  //val windowWidth: Int = 400
+  //val windowHeight: Int = 600
+  //val display: FunGraphics = new FunGraphics(windowWidth, windowHeight)
+
+  def run(): Unit = {
+    var menuOpen = true
+    lastDirection = -1
+
+    display.clear()
+    if(firstRun) menuLoc = 1
+
+    firstRun = false
+
+    background()
+    while (menuOpen) {
+      menuLocWrite()
+      highlightMenu()
+      if (select) {
+        menuLoc match {
+          case 1 => {
+            println("Starting Game...")
+            val game: Playing = new Playing(display)
+            select = false
+            menuOpen = false
+            game.run
+          }
+          case 2 => {
+            println("Opening Leaderboard...")
+            val lb: Leaderboard = new Leaderboard(display)
+            select = false
+            menuOpen = false
+            lb.run
+          }
+          case 3 => {
+            println("Exiting game...")
+            System.exit(0)
+          }
+        }
+      }
+    }
+  }
+
+  def menuLocWrite(): Unit = {
+    if (newIn) {
+      lastDirection match {
+        case 2 => {
+          if (menuLoc == 1) menuLoc = 3 else menuLoc += -1
+        }
+        case 0 => {
+          if (menuLoc == 3) menuLoc = 1 else menuLoc += +1
+        }
+        case _ => ()
+      }
+      newIn = false
+    }
+  }
+
+  def highlightMenu(): Unit = {
+    menuLoc match {
+      case 1 => {
+        playSelected()
+      }
+      case 2 => {
+        leaderBoardSelected()
+      }
+      case 3 => {
+        quitSelected()
+      }
+      case _ => {
+      }
+    }
+  }
+
+  def playSelected(): Unit = {
     display.clear()
     background()
     /*
@@ -52,9 +122,9 @@ class MainMenu (val display : FunGraphics) {
     */
 
 
-    while(!newIn) {
+    while (!newIn) {
       for (i <- 0 to 221 by 5) {
-        if(!newIn) {
+        if (!newIn) {
           val textColor = new Color(i, i, i)
           display.setColor(Color.white)
           display.drawFillRect(140, 275, 110, 35)
@@ -65,7 +135,17 @@ class MainMenu (val display : FunGraphics) {
     }
   }
 
-  def leaderBoardSelected() : Unit = {
+  def background(): Unit = {
+    display.setColor(Color.BLACK)
+    display.drawString(70, 50, "Super Fun 2048", Font.MONOSPACED, Font.BOLD, 30, Color.orange)
+    display.drawString(140, 300, "Play !", Font.MONOSPACED, Font.PLAIN, 30, Color.black)
+    display.drawString(100, 400, "Leaderboard", Font.MONOSPACED, Font.PLAIN, 30, Color.black)
+    display.drawString(160, 500, "Quit", Font.MONOSPACED, Font.PLAIN, 30, Color.black)
+    //Reset lastDirection value
+    lastDirection = -1
+  }
+
+  def leaderBoardSelected(): Unit = {
     display.clear()
     background()
     /*
@@ -76,9 +156,10 @@ class MainMenu (val display : FunGraphics) {
     */
 
 
-    while(!newIn) {
+    while (!newIn) {
+
       for (i <- 0 to 221 by 5) {
-        if(!newIn) {
+        if (!newIn) {
           val textColor = new Color(i, i, i)
           display.setColor(Color.white)
           display.drawFillRect(100, 375, 203, 35)
@@ -89,96 +170,25 @@ class MainMenu (val display : FunGraphics) {
     }
   }
 
-  def quitSelected() : Unit = {
+  def quitSelected(): Unit = {
     display.clear()
     background()
-   /*
-    display.setColor(Color.white)
-    display.drawFillRect(155,470,80,40)
-    display.setColor(Color.BLACK)
-    display.drawRect (155,470,80,40)
-    */
+    /*
+     display.setColor(Color.white)
+     display.drawFillRect(155,470,80,40)
+     display.setColor(Color.BLACK)
+     display.drawRect (155,470,80,40)
+     */
 
 
-    while(!newIn) {
+    while (!newIn) {
       for (i <- 0 to 221 by 5) {
-        if(!newIn){
+        if (!newIn) {
           val textColor = new Color(i, i, i)
           display.setColor(Color.white)
-          display.drawFillRect(160,475,75,35)
+          display.drawFillRect(160, 475, 75, 35)
           display.drawString(160, 500, "Quit", Font.MONOSPACED, Font.BOLD, 30, textColor)
           Thread.sleep(10)
-        }
-      }
-    }
-  }
-
-  def background() : Unit = {
-    display.setColor (Color.BLACK)
-    display.drawString (70, 50, "Super Fun 2048", Font.MONOSPACED, Font.BOLD, 30, Color.orange)
-    display.drawString (140, 300, "Play !", Font.MONOSPACED, Font.PLAIN, 30, Color.black)
-    display.drawString (100, 400, "Leaderboard", Font.MONOSPACED, Font.PLAIN, 30, Color.black)
-    display.drawString (160, 500, "Quit", Font.MONOSPACED, Font.PLAIN, 30, Color.black)
-    //Reset lastDirection value
-    lastDirection = -1
-  }
-
-  def menuLocWrite() : Unit = {
-    if(newIn){
-      lastDirection match {
-        case 2 => {
-          if(menuLoc ==1) menuLoc = 3 else menuLoc += -1
-        }
-        case 0 => {
-          if(menuLoc ==3) menuLoc = 1 else menuLoc += +1
-        }
-        case _ => ()
-      }
-      newIn = false
-    }
-  }
-
-  def highlightMenu() : Unit = {
-    menuLoc match {
-      case 1 => playSelected()
-      case 2 => leaderBoardSelected()
-      case 3 => quitSelected()
-      case _ => ()
-    }
-  }
-
-
-  def run() : Unit = {
-    var menuOpen = true
-
-    display.clear()
-
-    display.setKeyManager(kl)
-
-    background()
-    while (menuOpen) {
-      menuLocWrite()
-      highlightMenu()
-      if (select) {
-        menuLoc match {
-          case 1 => {
-            println("Starting Game...")
-            val game : Playing = new Playing(display)
-            select = false
-            menuOpen = false
-            game.run
-          }
-          case 2 => {
-            println("Opening Leaderboard...")
-            val lb : Leaderboard = new Leaderboard(display)
-            select = false
-            menuOpen = false
-            lb.run
-          }
-          case 3 => {
-            println("Exiting game...")
-            System.exit(0)
-          }
         }
       }
     }
