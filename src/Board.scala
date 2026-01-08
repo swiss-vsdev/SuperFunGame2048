@@ -335,28 +335,12 @@ class Board (val display : FunGraphics) {
     }
 
   }
-  def looooooooooser(): Boolean = {
-    //Initializing the variable nbrFullCases
-    var nbrFullCases: Int = 0
-    //Navigating the entire ArrayOfDim
-    for (i <- mainBoard.indices) {
-      for (j <- mainBoard(0).indices) {
-        //Counts how many cases are full
-        if (mainBoard(i)(j) != 0) nbrFullCases += 1
-      }
-    }
-    //There are 16 cases. If all of them are full, the player lost
-    if (nbrFullCases == 16) {
-      println("Looooooseeeeeeeeeeeeeeeeeer")
-      mainMenu.lb.writefile(username, scoreValue)
-      display.clear()
-      val gb = new GraphicsBitmap("/looser.jpg")
-      display.drawPicture(200,300,gb)
-      return true
-    } else {
-      return false
-    }
 
+  def looooooooooser() = {
+    mainMenu.lb.writefile(username, scoreValue)
+    display.clear()
+    val gb = new GraphicsBitmap("/looser.jpg")
+    display.drawPicture(200,300,gb)
   }
 
   def getFreeSpacesPosition(): Array[Array[Int]] = {
@@ -493,8 +477,17 @@ class Board (val display : FunGraphics) {
       case 256 => new Color(227, 43, 209)
       case 512 => new Color(175, 43, 227)
       case 1024 => new Color(104, 43, 227)
-      case 2048 => new Color(55, 43, 227)
-      case 5096 => new Color(43, 117, 227)
+      case 2048 => new Color(0, 0, 0)
+      case 4096 => new Color(255, 0, 0)
+      case 8192 => new Color(0, 255, 0)
+      case 16384 => new Color(0, 0, 255)
+      case 32768 => new Color(43, 117, 227)
+      case 65536 => new Color(43, 117, 227)
+      case 131072 => new Color(43, 117, 227)
+      case 262144 => new Color(43, 117, 227)
+      case 524288 => new Color(43, 117, 227)
+      case 1048576 => new Color(43, 117, 227)
+      case 2097152 => new Color(43, 117, 227)
     }
   }
 
