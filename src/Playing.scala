@@ -1,16 +1,9 @@
 import Start.lastDirection
 import hevs.graphics.FunGraphics
-import Dialogs.noAnswer
-
-import java.awt.event.{KeyEvent, KeyListener}
 import java.io.File
 import javax.sound.sampled.AudioSystem
 
 class Playing(val display: FunGraphics) {
-  //Creates the FunGraphics Window
-  //val windowWidth: Int = 400
-  //val windowHeight: Int = 600
-  //val display: FunGraphics = new FunGraphics(windowWidth, windowHeight)
 
   //Initializing the var for the waiting status for the player input
   var waitingInput: Boolean = true
@@ -38,6 +31,7 @@ class Playing(val display: FunGraphics) {
     //Game Loop
     while (game.isRunning) {
 
+      //Playing sound effect when moving tiles
       val musicfile = new File("./src/bubble.wav")
       val clip = AudioSystem.getClip()
       val audio = AudioSystem.getAudioInputStream(musicfile)

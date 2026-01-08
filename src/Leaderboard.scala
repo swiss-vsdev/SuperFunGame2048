@@ -1,9 +1,9 @@
 import hevs.graphics.FunGraphics
 import hevs.graphics.utils.GraphicsBitmap
-
 import java.awt.{Color, Font}
 import java.io.{BufferedReader, File, FileNotFoundException, FileOutputStream, FileReader, PrintWriter}
 import javax.sound.sampled.AudioSystem
+
 
 class Leaderboard(val display: FunGraphics) {
 
@@ -32,7 +32,7 @@ class Leaderboard(val display: FunGraphics) {
         if (i % 2 != 0) {
           val username: String = scores(i - 1)
           val score: String = scores(i)
-          println(s"User : $username Score : $score")
+          println(s"User : $username - Score : $score")
 
           if (score.toInt >= score1.toInt) {
             user1 = username
@@ -46,12 +46,11 @@ class Leaderboard(val display: FunGraphics) {
           } else if (score.toInt >= score4.toInt) {
             user4 = username
             score4 = score
-          } else if (score.toInt >= score4.toInt) {
+          } else if (score.toInt >= score5.toInt) {
             user5 = username
             score5 = score
           }
           outString = s"$user1;$score1;$user2;$score2;$user3;$score3;$user4;$score4;$user5;$score5"
-          println(outString)
         }
       }
     }
@@ -126,11 +125,9 @@ class Leaderboard(val display: FunGraphics) {
       val fs = new FileOutputStream("src/score.txt", true)
       val pw = new PrintWriter(fs)
 
-      // This is the content which will be written INTO the file
       pw.println(s"$username;$score;")
-
-      // We have to close the file when we are done working with it
       pw.close()
+
     } catch {
       case e: Exception =>
         println("File can't be written")

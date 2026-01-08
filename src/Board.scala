@@ -12,7 +12,7 @@ class Board(val display: FunGraphics) {
   var username: String = ""
   var isAWinner: Boolean = false
 
-  def addNewTile() = {
+  def addNewTile(): Unit = {
     var rand: Int = (math.random() * 10).toInt
     var numToAdd: Int = 2;
     if (rand <= 2) {
@@ -35,7 +35,6 @@ class Board(val display: FunGraphics) {
 
       mainBoard(x)(y) = numToAdd
     }
-    //printBoard
   }
 
   def getFreeSpacesPosition(): Array[Array[Int]] = {
@@ -52,7 +51,7 @@ class Board(val display: FunGraphics) {
       }
     }
 
-    return freeSpaceArray
+    freeSpaceArray
   }
 
   def getFreeSpacesNumber(): Int = {
@@ -65,17 +64,17 @@ class Board(val display: FunGraphics) {
         }
       }
     }
-    return freeSpace
+    freeSpace
   }
 
   def canMove(): Array[Boolean] = {
-    var direction: Array[Boolean] = Array(false, false, false, false)
+    val direction: Array[Boolean] = Array(false, false, false, false)
 
     //Bas
     var compareBoard: Array[Array[Int]] = Array.ofDim(4, 4)
     for (i <- 0 to 3) {
-      var line: Array[Int] = Array(mainBoard(3)(i), mainBoard(2)(i), mainBoard(1)(i), mainBoard(0)(i));
-      var newLine = lineProcessor(line, false)
+      val line: Array[Int] = Array(mainBoard(3)(i), mainBoard(2)(i), mainBoard(1)(i), mainBoard(0)(i));
+      val newLine = lineProcessor(line, false)
       compareBoard(3)(i) = newLine(0)
       compareBoard(2)(i) = newLine(1)
       compareBoard(1)(i) = newLine(2)
@@ -159,7 +158,8 @@ class Board(val display: FunGraphics) {
     // id 1 = gauche
     // id 2 = haut
     // id 3 = droite
-    return direction
+
+    direction
   }
 
   def moveTiles(direction: Int) = {
@@ -167,6 +167,7 @@ class Board(val display: FunGraphics) {
     // 1 = gauche
     // 2 = haut
     // 3 = droite
+
     var xStart: Int = 0;
     var xEnd: Int = 3;
     var yStart: Int = 0;
@@ -175,9 +176,9 @@ class Board(val display: FunGraphics) {
     direction match {
       case 0 => { // Bas
         for (i <- 0 to 3) {
-          var line: Array[Int] = Array(mainBoard(3)(i), mainBoard(2)(i), mainBoard(1)(i), mainBoard(0)(i));
-          var newLine = lineProcessor(line, true)
-          println("Line processed = " + newLine)
+          val line: Array[Int] = Array(mainBoard(3)(i), mainBoard(2)(i), mainBoard(1)(i), mainBoard(0)(i));
+          val newLine = lineProcessor(line, true)
+          //println("Line processed = " + newLine)
           mainBoard(3)(i) = newLine(0)
           mainBoard(2)(i) = newLine(1)
           mainBoard(1)(i) = newLine(2)
@@ -187,9 +188,9 @@ class Board(val display: FunGraphics) {
       }
       case 1 => { // Gauche
         for (i <- 0 to 3) {
-          var line: Array[Int] = Array(mainBoard(i)(0), mainBoard(i)(1), mainBoard(i)(2), mainBoard(i)(3));
-          var newLine = lineProcessor(line, true)
-          println("Line processed = " + newLine)
+          val line: Array[Int] = Array(mainBoard(i)(0), mainBoard(i)(1), mainBoard(i)(2), mainBoard(i)(3));
+          val newLine = lineProcessor(line, true)
+          //println("Line processed = " + newLine)
           mainBoard(i)(0) = newLine(0)
           mainBoard(i)(1) = newLine(1)
           mainBoard(i)(2) = newLine(2)
@@ -198,9 +199,9 @@ class Board(val display: FunGraphics) {
       }
       case 2 => { // Haut
         for (i <- 0 to 3) {
-          var line: Array[Int] = Array(mainBoard(0)(i), mainBoard(1)(i), mainBoard(2)(i), mainBoard(3)(i));
-          var newLine = lineProcessor(line, true)
-          println("Line processed = " + newLine)
+          val line: Array[Int] = Array(mainBoard(0)(i), mainBoard(1)(i), mainBoard(2)(i), mainBoard(3)(i));
+          val newLine = lineProcessor(line, true)
+          //println("Line processed = " + newLine)
           mainBoard(0)(i) = newLine(0)
           mainBoard(1)(i) = newLine(1)
           mainBoard(2)(i) = newLine(2)
@@ -209,9 +210,9 @@ class Board(val display: FunGraphics) {
       }
       case 3 => { // Droite
         for (i <- 0 to 3) {
-          var line: Array[Int] = Array(mainBoard(i)(3), mainBoard(i)(2), mainBoard(i)(1), mainBoard(i)(0));
-          var newLine = lineProcessor(line, true)
-          println("Line processed = " + newLine)
+          val line: Array[Int] = Array(mainBoard(i)(3), mainBoard(i)(2), mainBoard(i)(1), mainBoard(i)(0));
+          val newLine = lineProcessor(line, true)
+          //println("Line processed = " + newLine)
           mainBoard(i)(3) = newLine(0)
           mainBoard(i)(2) = newLine(1)
           mainBoard(i)(1) = newLine(2)
@@ -303,7 +304,7 @@ class Board(val display: FunGraphics) {
     println("Nbr3 = " + nbr3)
     println("Nbr4 = " + nbr4)*/
 
-    return line
+    line
   }
 
   def score(): Int = {
@@ -394,7 +395,6 @@ class Board(val display: FunGraphics) {
     display.drawFillRect(205, 410, 60, 60)
     display.setColor(caseColor(mainBoard(3)(3)))
     display.drawFillRect(275, 410, 60, 60)
-
   }
 
   private def caseColor(in: Int): Color = {
@@ -474,7 +474,6 @@ class Board(val display: FunGraphics) {
         Thread.sleep(2000)
       }
     }
-
   }
 
   def looooooooooser() = {
@@ -496,7 +495,7 @@ class Board(val display: FunGraphics) {
     display.drawString(10, 20, "Press [Esc] key to leave the game", Font.MONOSPACED, Font.BOLD, 15, Color.black)
   }
 
-  def printBoard = {
+  def printBoard(): Unit = {
     println("Board = ______________________")
     for (x <- mainBoard.indices) {
       println(mainBoard(x).mkString("/"))
@@ -505,7 +504,7 @@ class Board(val display: FunGraphics) {
 
   def isRunning(): Boolean = {
     true
-  } //Forcage temporaire de isRunning
+  }
 
   def askUsername(): String = {
     username = Dialogs.getString("Type your username")

@@ -5,7 +5,6 @@ object Start extends App {
   val kl: KeyListener = new KeyListener {
     override def keyTyped(e: KeyEvent): Unit = {
       newIn = true
-      println("Key Pressed")
     }
 
     override def keyPressed(e: KeyEvent): Unit = {
@@ -17,26 +16,24 @@ object Start extends App {
         case ' ' => select = true
         case _ => ()
       }
-
       e.getKeyCode match {
         case 27 => {
           System.exit(0)
         }
         case _ => ()
       }
-
     }
-
     override def keyReleased(e: KeyEvent): Unit = {
-
     }
   }
-  val display = new FunGraphics(400, 600)
+
+  val display = new FunGraphics(400, 600, "Super Fun 2048")
   val mainMenu = new MainMenu(display)
   var lastDirection = -1
   var select = false
+
   display.setKeyManager(kl)
   var newIn = false
-  mainMenu.run()
 
+  mainMenu.run()
 }

@@ -1,49 +1,13 @@
 import Start.{lastDirection, newIn, select}
 import hevs.graphics.FunGraphics
 import hevs.graphics.utils.GraphicsBitmap
-
 import java.awt.{Color, Font}
-import java.awt.event.{KeyEvent, KeyListener}
 import java.io.File
 import javax.sound.sampled.AudioSystem
 
 class MainMenu(val display: FunGraphics) {
   val lb: Leaderboard = new Leaderboard(display)
   var menuLoc: Int = 1
-  /*Initializing KeyListener that changes the value of lastDirection
-  val kl: KeyListener = new KeyListener {
-    override def keyTyped(e: KeyEvent): Unit = {
-      newIn = true
-    }
-
-    override def keyPressed(e: KeyEvent): Unit = {
-      println("Coucou")
-      e.getKeyChar match {
-        case 'w' => lastDirection = 2
-        case 'a' => lastDirection = 1
-        case 's' => lastDirection = 0
-        case 'd' => lastDirection = 3
-        case ' ' => select = true
-        case _ => ()
-      }
-      e.getKeyCode match {
-        case 27 => {
-          Thread.sleep(300)
-          println("Returning to menu")
-          run()
-        }
-        case _ => ()
-      }
-    }
-
-    override def keyReleased(e: KeyEvent): Unit = {
-    }
-  }
-
-   */
-  //val windowWidth: Int = 400
-  //val windowHeight: Int = 600
-  //val display: FunGraphics = new FunGraphics(windowWidth, windowHeight)
 
   def run(): Unit = {
     var menuOpen = true
@@ -73,12 +37,23 @@ class MainMenu(val display: FunGraphics) {
           }
           case 3 => {
             println("Exiting game...")
+
             val musicfile = new File("./src/bye.wav")
             val clip = AudioSystem.getClip()
             val audio = AudioSystem.getAudioInputStream(musicfile)
             clip.open(audio)
             clip.start()
-            Thread.sleep(clip.getMicrosecondLength / 1000)
+
+            val time : Long = System.currentTimeMillis() + 7500
+
+            while(System.currentTimeMillis() < time){
+              for(i <- 0 to 9){
+                val gb = new GraphicsBitmap(s"/byeGif/frame_0$i.jpg")
+                display.drawPicture(200, 303, gb)
+                Thread.sleep(15)
+              }
+            }
+
             clip.stop()
             display.clear()
             val gb = new GraphicsBitmap("/bonus2.jpg")
@@ -125,13 +100,6 @@ class MainMenu(val display: FunGraphics) {
   def playSelected(): Unit = {
     display.clear()
     background()
-    /*
-    display.setColor(Color.white)
-    display.drawFillRect(135,270,115,40)
-    display.setColor(Color.BLACK)
-    display.drawRect (135,270,115,40)
-    */
-
 
     while (!newIn) {
       for (i <- 0 to 221 by 5) {
@@ -159,16 +127,8 @@ class MainMenu(val display: FunGraphics) {
   def leaderBoardSelected(): Unit = {
     display.clear()
     background()
-    /*
-    display.setColor(Color.white)
-    display.drawFillRect(95,370,208,40)
-    display.setColor(Color.BLACK)
-    display.drawRect (95,370,208,40)
-    */
-
 
     while (!newIn) {
-
       for (i <- 0 to 221 by 5) {
         if (!newIn) {
           val textColor = new Color(i, i, i)
@@ -184,13 +144,6 @@ class MainMenu(val display: FunGraphics) {
   def quitSelected(): Unit = {
     display.clear()
     background()
-    /*
-     display.setColor(Color.white)
-     display.drawFillRect(155,470,80,40)
-     display.setColor(Color.BLACK)
-     display.drawRect (155,470,80,40)
-     */
-
 
     while (!newIn) {
       for (i <- 0 to 221 by 5) {
