@@ -49,6 +49,7 @@ class Playing(val display : FunGraphics){
           game.winner()
           game.addNewTile()
           game.show()
+          game.winner()
         }
         allowedDirections = game.canMove()
         if (allowedDirections.sameElements(Array(false, false, false, false)) == true && looser == false) {

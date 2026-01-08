@@ -10,6 +10,7 @@ class Board (val display : FunGraphics) {
   var mainBoard : Array[Array[Int]] = Array.ofDim(4,4)
   var scoreValue : Int = 0
   var username : String = ""
+  var isAWinner : Boolean = false
 
   def addNewTile() = {
     var rand : Int = (math.random() * 10).toInt
@@ -327,10 +328,12 @@ class Board (val display : FunGraphics) {
         if (highestValue < mainBoard(i)(j)) highestValue = mainBoard(i)(j)
       }
       //Print Winner ! if the highest value of any case is 2048
-      if (highestValue == 2048) {
+      if (highestValue == 2048 && isAWinner == false) {
+        isAWinner = true
         println("WINNER !")
         val gb = new GraphicsBitmap("/winner.jpg")
         display.drawPicture(200,300,gb)
+        Thread.sleep(2000)
       }
     }
 
@@ -341,6 +344,9 @@ class Board (val display : FunGraphics) {
     display.clear()
     val gb = new GraphicsBitmap("/looser.jpg")
     display.drawPicture(200,300,gb)
+    Thread.sleep(1000)
+    display.drawString(10,20, "Press [Esc] key to leave the game", Font.MONOSPACED, Font.BOLD, 15, Color.black)
+
   }
 
   def getFreeSpacesPosition(): Array[Array[Int]] = {
