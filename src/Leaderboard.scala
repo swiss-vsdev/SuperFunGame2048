@@ -2,7 +2,8 @@ import hevs.graphics.FunGraphics
 import hevs.graphics.utils.GraphicsBitmap
 
 import java.awt.{Color, Font}
-import java.io.{BufferedReader, FileNotFoundException, FileOutputStream, FileReader, PrintWriter}
+import java.io.{BufferedReader, File, FileNotFoundException, FileOutputStream, FileReader, PrintWriter}
+import javax.sound.sampled.AudioSystem
 
 class Leaderboard(val display: FunGraphics) {
 
@@ -70,6 +71,13 @@ class Leaderboard(val display: FunGraphics) {
     }
     nbrCnt = 1
     val gb = new GraphicsBitmap("/bonus.jpg")
+
+    val musicfile = new File("./src/epicmusic.wav")
+    val clip = AudioSystem.getClip()
+    val audio = AudioSystem.getAudioInputStream(musicfile)
+    clip.open(audio)
+    clip.start()
+
     while (true) {
       for (j <- 0 to 364 by 74) {
         for (i <- 0 to 364) {
@@ -79,6 +87,8 @@ class Leaderboard(val display: FunGraphics) {
       }
       Thread.sleep(500)
     }
+
+    clip.stop()
   }
 
   def readfile(): Array[String] = {

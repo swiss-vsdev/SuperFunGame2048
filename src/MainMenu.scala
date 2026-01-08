@@ -1,8 +1,11 @@
 import Start.{lastDirection, newIn, select}
 import hevs.graphics.FunGraphics
+import hevs.graphics.utils.GraphicsBitmap
 
 import java.awt.{Color, Font}
 import java.awt.event.{KeyEvent, KeyListener}
+import java.io.File
+import javax.sound.sampled.AudioSystem
 
 class MainMenu(val display: FunGraphics) {
   val lb: Leaderboard = new Leaderboard(display)
@@ -70,6 +73,17 @@ class MainMenu(val display: FunGraphics) {
           }
           case 3 => {
             println("Exiting game...")
+            val musicfile = new File("./src/bye.wav")
+            val clip = AudioSystem.getClip()
+            val audio = AudioSystem.getAudioInputStream(musicfile)
+            clip.open(audio)
+            clip.start()
+            Thread.sleep(clip.getMicrosecondLength / 1000)
+            clip.stop()
+            display.clear()
+            val gb = new GraphicsBitmap("/bonus2.jpg")
+            display.drawPicture(200, 300, gb)
+            Thread.sleep(1000)
             System.exit(0)
           }
         }

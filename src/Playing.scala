@@ -44,6 +44,7 @@ class Playing(val display: FunGraphics) {
       clip.open(audio)
       clip.start()
 
+
       //Tester les 4 directions et bloquer les non authorisées
 
       println("directions :" + allowedDirections.mkString(" / "))
