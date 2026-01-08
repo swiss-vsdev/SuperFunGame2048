@@ -6,7 +6,6 @@ import java.awt.event.{KeyEvent, KeyListener}
 
 class MainMenu(val display: FunGraphics) {
   var menuLoc: Int = 1
-  var firstRun: Boolean = true
   val lb: Leaderboard = new Leaderboard(display)
   /*Initializing KeyListener that changes the value of lastDirection
   val kl: KeyListener = new KeyListener {
@@ -48,9 +47,7 @@ class MainMenu(val display: FunGraphics) {
     lastDirection = -1
 
     display.clear()
-    if(firstRun) menuLoc = 1
-
-    firstRun = false
+    menuLoc = 1
 
     background()
     while (menuOpen) {

@@ -1,6 +1,6 @@
 import Start.lastDirection
 import hevs.graphics.FunGraphics
-
+import Dialogs.noAnswer
 import java.awt.event.{KeyEvent, KeyListener}
 
 class Playing(val display : FunGraphics){
@@ -22,6 +22,7 @@ class Playing(val display : FunGraphics){
     val game: Board = new Board(display)
 
     game.askUsername()
+    if(Dialogs.noAnswer) return
 
     //Adding the first tile
     game.addNewTile()

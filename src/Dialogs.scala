@@ -9,6 +9,7 @@ import javax.swing.{JFrame, JOptionPane, JPasswordField}
  *
  */
 object Dialogs {
+  var noAnswer : Boolean = false
   /**
    * This function open a dialog box to enter a hidden String. The dialog box
    * asks for a String containing a minimum of one character.
@@ -28,6 +29,7 @@ object Dialogs {
   }
 
   def getString(message: String): String = {
+    noAnswer = false
     val frame = new JFrame(message)
     // prompt the user to enter their name
     try{
@@ -36,6 +38,7 @@ object Dialogs {
       else getString("Enter at least one character")
     } catch {
       case e : Exception =>
+        noAnswer = true
         Start.mainMenu.run()
         ""
     }

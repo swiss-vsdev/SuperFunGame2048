@@ -352,6 +352,7 @@ class Board (val display : FunGraphics) {
       display.clear()
       val gb = new GraphicsBitmap("/looser.jpg")
       display.drawPicture(200,300,gb)
+      display.drawString(130, 550, s"Score : $scoreValue", Font.MONOSPACED, Font.BOLD, 30, Color.white)
       return true
     } else {
       return false
