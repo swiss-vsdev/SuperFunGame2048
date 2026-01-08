@@ -189,13 +189,6 @@ class Board (val display : FunGraphics) {
         }
       }
     }
-
-    for (i <- mainBoard.indices){
-      for (j <- mainBoard(0).indices){
-
-      }
-    }
-
   }
 
   def lineProcessor(line : Array[Int], scoring: Boolean): Array[Int] = {
@@ -207,12 +200,6 @@ class Board (val display : FunGraphics) {
     if (nbr1 == 0 && nbr2 == 0 && nbr3 == 0 && nbr4 == 0){ // Nothing to do
       return line
     }
-
-    /*println("Before sticking")
-    println("Nbr1 = " + nbr1)
-    println("Nbr2 = " + nbr2)
-    println("Nbr3 = " + nbr3)
-    println("Nbr4 = " + nbr4)*/
 
     // Sticking number to each others and to the top
     for (i <- 0 to 3) {
@@ -237,6 +224,7 @@ class Board (val display : FunGraphics) {
       }
     }
 
+    //merging the numbers
     if(nbr1 != 0 && nbr1 == nbr2){
       nbr1 = nbr1 + nbr2
       if(scoring){
