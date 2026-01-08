@@ -63,6 +63,7 @@ class Playing(val display : FunGraphics){
           game.score()
           game.winner()
           game.addNewTile()
+          game.animate(lastDirection)
           game.show()
         }
         allowedDirections = game.canMove()

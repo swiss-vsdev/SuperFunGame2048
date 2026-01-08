@@ -4,7 +4,29 @@ import java.awt.Font
 
 class Board (val display : FunGraphics) {
   var mainBoard : Array[Array[Int]] = Array.ofDim(4,4)
+  var boardBefore : Array[Array[Int]] = Array.ofDim(4,4)
+
+  var tilesToMove : Array[TileToMove] =  Array.fill(12)(new TileToMove(0,0,0,0,0,0,0,0, java.awt.Color.red, false))
+
   var scoreValue : Int = 0
+
+  val oneDigitLength1 = 82
+  val oneDigitLength2 = 152
+  val oneDigitLength3 = 222
+  val oneDigitLength4 = 292
+
+  val oneDigitHeight1 = 245
+  val oneDigitHeight2 = 315
+  val oneDigitHeight3 = 385
+  val oneDigitHeight4 = 455
+
+  //Generic Coordinates for the tiles drawing
+  val gridCoordinates: Array[Array[GridTile]] = Array(
+    Array(new GridTile(65, 200, 60, 60), new GridTile(135, 200, 60, 60), new GridTile(205, 200, 60, 60), new GridTile(275, 200, 60, 60)),
+    Array(new GridTile(65, 270, 60, 60), new GridTile(135, 270, 60, 60), new GridTile(205, 270, 60, 60), new GridTile(275, 270, 60, 60)),
+    Array(new GridTile(65, 340, 60, 60), new GridTile(135, 340, 60, 60), new GridTile(205, 340, 60, 60), new GridTile(275, 340, 60, 60)),
+    Array(new GridTile(65, 410, 60, 60), new GridTile(135, 410, 60, 60), new GridTile(205, 410, 60, 60), new GridTile(275, 410, 60, 60)),
+  )
 
   def addNewTile() = {
     var rand : Int = (math.random() * 10).toInt
@@ -136,6 +158,10 @@ class Board (val display : FunGraphics) {
     var yStart : Int = 0;
     var yEnd : Int = 3;
 
+    var tileToMoveId = 0;
+
+    boardBefore = mainBoard.clone()
+
     direction match {
       case 0 => {// Bas
         for (i <- 0 to 3){
@@ -146,6 +172,20 @@ class Board (val display : FunGraphics) {
           mainBoard(2)(i) = newLine(1)
           mainBoard(1)(i) = newLine(2)
           mainBoard(0)(i) = newLine(3)
+
+          if(newLine(7) > 0){
+            println("longueur du mouvement :" + newLine(7) )
+            tilesToMove(tileToMoveId) = new TileToMove(3,i,3-newLine(7), i,nbrCoordinates(boardBefore(3)(i), oneDigitLength1), nbrHeight(mainBoard(3)(i),oneDigitHeight1),0,0, caseColor(boardBefore(3)(i)), active = true)
+            tileToMoveId += 1
+          }
+          if(newLine(6) > 0){
+            tilesToMove(tileToMoveId) = new TileToMove(2,i,2-newLine(6), i,nbrCoordinates(boardBefore(2)(i), oneDigitLength1), nbrHeight(mainBoard(2)(i),oneDigitHeight1),0,0, caseColor(boardBefore(2)(i)), active = true)
+            tileToMoveId += 1
+          }
+          if(newLine(5) > 0){
+            tilesToMove(tileToMoveId) = new TileToMove(1,i,1-newLine(5), i,nbrCoordinates(boardBefore(1)(i), oneDigitLength1), nbrHeight(mainBoard(1)(i),oneDigitHeight1),0,0, caseColor(boardBefore(1)(i)), active = true)
+            tileToMoveId += 1
+          }
         }
         //printBoard
       }
@@ -180,6 +220,7 @@ class Board (val display : FunGraphics) {
           mainBoard(i)(2) = newLine(1)
           mainBoard(i)(1) = newLine(2)
           mainBoard(i)(0) = newLine(3)
+
         }
       }
     }
@@ -193,89 +234,184 @@ class Board (val display : FunGraphics) {
   }
 
   def lineProcessor(line : Array[Int]): Array[Int] = {
-    var nbr1 : Int = line(0)
+    //id 0 to 3 = numbers at them new position
+    //id 4 to 7 = movement of each number at the position before (id3 = id7) (id2 = id6) etc..
+    /*var nbr1 : Int = line(0)
     var nbr2 : Int = line(1)
     var nbr3 : Int = line(2)
-    var nbr4 : Int = line(3)
+    var nbr4 : Int = line(3)*/
 
-    if (nbr1 == 0 && nbr2 == 0 && nbr3 == 0 && nbr4 == 0){ // Nothing to do
-      return line
+    var newLine = new Array[Int](8)
+
+    if (line(0) == 0 && line(1) == 0 && line(2) == 0 && line(3) == 0){ // Nothing to do
+      return newLine
     }
 
-    /*println("Before sticking")
-    println("Nbr1 = " + nbr1)
-    println("Nbr2 = " + nbr2)
-    println("Nbr3 = " + nbr3)
-    println("Nbr4 = " + nbr4)*/
+    var lineOnStart:Array[nbr] = new Array[nbr](4)
 
-    // Sticking number to each others and to the top
-    for (i <- 0 to 3) {
-      if (nbr1 == 0){
-        nbr1 = nbr2
-        nbr2 = nbr3
-        nbr3 = nbr4
-        nbr4 = 0
-      }
-    }
-    for (i <- 0 to 2) {
-      if (nbr2 == 0){
-        nbr2 = nbr3
-        nbr3 = nbr4
-        nbr4 = 0
-      }
-    }
-    for (i <- 0 to 1) {
-      if (nbr3 == 0){
-        nbr3 = nbr4
-        nbr4 = 0
+    //initialisation of the array
+    for(i <- 0 to 3){
+      if (line(i) != 0){
+        lineOnStart(i) = new nbr(line(i), i, i, true)
+      } else {
+        lineOnStart(i) = new nbr(line(i), i, i, false)
       }
     }
 
-    if(nbr1 != 0 && nbr1 == nbr2){
-      nbr1 = nbr1 + nbr2
-      nbr2 = nbr3
-      nbr3 = nbr4
-      nbr4 = 0
+    //Movement calculation  caused by the 0 between numbers
+    if(lineOnStart(0).nbr == 0){
+      lineOnStart(1).posEnd -= 1
+      lineOnStart(2).posEnd -= 1
+      lineOnStart(3).posEnd -= 1
     }
-    if(nbr2 != 0 && nbr2 == nbr3){
-      nbr2 = nbr2 + nbr3
-      nbr3 = nbr4
-      nbr4 = 0
-    }
-    if(nbr3 != 0 && nbr3 == nbr4){
-      nbr3 = nbr3 + nbr4
-      nbr4 = 0
-    }
-    line(0) = nbr1
-    line(1) = nbr2
-    line(2) = nbr3
-    line(3) = nbr4
 
-    /*println("After sticking")
-    println("Nbr1 = " + nbr1)
-    println("Nbr2 = " + nbr2)
-    println("Nbr3 = " + nbr3)
-    println("Nbr4 = " + nbr4)*/
+    if(lineOnStart(1).nbr == 0){
+      lineOnStart(2).posEnd -= 1
+      lineOnStart(3).posEnd -= 1
+    }
 
-    return line
+    if(lineOnStart(2).nbr == 0){
+      lineOnStart(3).posEnd -= 1
+    }
+
+
+    var lineAfterZeroCalc:Array[nbr] = new Array[nbr](4)
+
+    //initialisation of the array Without The Zero between the numbers
+    for(i <- 0 to 3){
+      lineAfterZeroCalc(i) = lineOnStart(i)
+      for(y <- 0 to 3){
+        if (lineOnStart(y).posEnd == i && lineOnStart(y).exist == true){
+          lineAfterZeroCalc(i) = lineOnStart(y)
+        }
+      }
+    }
+
+    //Calculation of the mergings (3layers of merging maximum)
+    for(i <- 0 to 2){
+      if(lineAfterZeroCalc(i).nbr == lineAfterZeroCalc(i+1).nbr){
+        lineAfterZeroCalc(i).exist = false
+        lineAfterZeroCalc(i+1).nbr *= 2
+        lineAfterZeroCalc(i+1).posEnd -= 1
+      }
+    }
+
+
+    var lineAfter1StMerging:Array[nbr] = new Array[nbr](4)
+
+    //initialisation of the array with the number merged
+    for(i <- 0 to 3){
+      lineOnStart(i) = new nbr(line(i), i, i, false)
+      for(y <- 0 to 3){
+        if (lineOnStart(y).posEnd == i && lineOnStart(y).exist == true){
+          lineAfterZeroCalc(i) = lineOnStart(y)
+        }
+      }
+    }
+
+    //Calculation of the mergings (3layers of merging maximum)
+    for(i <- 0 to 2){
+      if(lineAfterZeroCalc(i).nbr == lineAfterZeroCalc(i+1).nbr){
+        lineAfterZeroCalc(i).exist = false
+        lineAfterZeroCalc(i+1).nbr *= 2
+        lineAfterZeroCalc(i+1).posEnd -= 1
+      }
+    }
+
+
+
+
+
+    return newLine
+
+    class nbr(var nbr:Int = 0, var posStart:Int = 0, var posEnd:Int = 0, var exist:Boolean = false) {
+
+    }
   }
 
   def score(): Int = {
       scoreValue
   }
 
+  def animate(side: Int) = {
+    // // id 0 = bas
+    // // id 1 = gauche
+    // // id 2 = haut
+    // // id 3 = droite
+
+
+    val nbrSize : Int = 40
+    val nbrColor : Color = Color.white
+
+    //var toMove = new Array[Array[3]]
+    var workToDo: Boolean = true;
+
+    var nbrOfTiles : Int = 0
+    tilesToMove.foreach(tile => { //comptage du nombre de tiles à bouger
+      if(tile.active == true){
+        nbrOfTiles += 1
+      }
+    })
+
+    var i : Int = 0
+    while(workToDo){
+      tilesToMove.foreach(tile => {
+        //tant que posX =! posX calculé pour xEndId ET pareil pour yEndId (dépends si vertical ou horizontal)
+        //!!!!!! En gros faut calculer déjà à la définition du tilesToMove la position x ou y finales de la tiles
+        //!!!!!! Avec la destination finale on peut checker quand finir l'animation pour la tile
+
+
+        //display.drawString(tile.posX, nbrHeight(mainBoard(0)(0),oneDigitHeight1), s"${mainBoard(0)(0)}", nbrColor, nbrSizeValue(mainBoard(0)(0), nbrSize)
+        if(tile.active == true) {
+          println("Tile : " + tile.posX)
+          println("Tile = " + tile)
+          //display.clear()
+          //show()
+          display.drawFillRect((gridCoordinates(tile.xStartId)(tile.yStartId).posX + tile.xMoovement), (gridCoordinates(tile.xStartId)(tile.yStartId).posY + tile.yMoovement), 60, 60)
+          display.drawString(tile.posX, tile.posY, s"${boardBefore(tile.xStartId)(tile.yStartId)}", nbrColor, nbrSizeValue(boardBefore(tile.xStartId)(tile.yStartId), nbrSize))
+          //display.drawFillRect(65, 200, 60, 60) // Doit réimprimer le carré aussi
+          if(tile.posX != gridCoordinates(tile.xEndId)(tile.yEndId).posX || tile.posY != gridCoordinates(tile.xEndId)(tile.yEndId).posY){
+            side match {
+              case 0 => {
+                tile.posY += 1
+                tile.yMoovement -= 1
+              }
+              case 1 => {
+                tile.posX += 1
+                tile.xMoovement -= 1
+              }
+              case 2 => {
+                tile.posY -= 1
+                tile.yMoovement -= 1
+              }
+              case 3 => {
+                tile.posX -= 1
+                tile.xMoovement -= 1
+              }
+              case _ => {}
+            }
+          } else {
+            nbrOfTiles -= 1
+            tile.active = false
+          }
+
+        }
+      })
+      i += 1
+      Thread.sleep(1)
+
+      if(nbrOfTiles <= 0 || i >= 600){ //
+        workToDo = false;
+      }
+    }
+
+  }
+
+
   def show() = {
     val nbrSize : Int = 40
     val nbrColor : Color = Color.white
-    val oneDigitLength1 = 82
-    val oneDigitLength2 = 152
-    val oneDigitLength3 = 222
-    val oneDigitLength4 = 292
 
-    val oneDigitHeight1 = 245
-    val oneDigitHeight2 = 315
-    val oneDigitHeight3 = 385
-    val oneDigitHeight4 = 455
 
     display.clear()
     getGrid()
@@ -378,6 +514,10 @@ class Board (val display : FunGraphics) {
     true
   } //Forcage temporaire de isRunning
 
+  class GridTile(var posX : Int,var posY: Int, var width : Int, var height: Int) {
+
+  }
+
   def getGrid() : Unit = {
     //Displays the Grid
     display.setColor(Color.BLACK)
@@ -421,6 +561,8 @@ class Board (val display : FunGraphics) {
 
   }
 
+  //if number of older board is in the top of a 0, move 1 by 1 to the direction until it's not in the top anymore
+
   private def nbrCoordinates(in : Int, oneDigit : Int) : Int = {
     if(in > 1000){
       return oneDigit - 12
@@ -456,7 +598,7 @@ class Board (val display : FunGraphics) {
   private def caseColor(in : Int): Color = {
     in match {
       case 0 => Color.lightGray
-      case 2 => Color.yellow
+      case 2 => Color.red
       case 4 => Color.orange
       case 8 => Color.cyan
       case 16 => Color.blue
@@ -465,8 +607,25 @@ class Board (val display : FunGraphics) {
       case 128 => Color.red
       case 256 => Color.green
       case 512 => Color.cyan
-      case 1024 => Color.red
+      case 1024 => Color.yellow
       case 2048 => Color.orange
+    }
+  }
+
+  class TileToMove(
+    var xStartId: Int,
+    var yStartId: Int,
+    var xEndId: Int,
+    var yEndId: Int,
+    var posX: Int,
+    var posY: Int,
+    var xMoovement: Int,
+    var yMoovement: Int,
+    var color: java.awt.Color,
+    var active: Boolean) {
+
+    override def toString:String = {
+      return(s" xStartId = $xStartId | yStart = $yStartId || xEndId = $xEndId | yEndId = yEndId || xmov = $xMoovement | ymov = $yMoovement")
     }
   }
 }
