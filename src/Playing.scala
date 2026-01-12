@@ -1,13 +1,10 @@
-import Start.lastDirection
+import Start.{isOn, lastDirection, waitingInput, looser}
 import hevs.graphics.FunGraphics
+
 import java.io.File
 import javax.sound.sampled.AudioSystem
 
 class Playing(val display: FunGraphics) {
-
-  //Initializing the var for the waiting status for the player input
-  var waitingInput: Boolean = true
-  var looser: Boolean = false
 
 
   def run(): Unit = {
@@ -29,7 +26,7 @@ class Playing(val display: FunGraphics) {
     var allowedDirections = game.canMove()
 
     //Game Loop
-    while (game.isRunning) {
+    while (game.isRunning && isOn) {
 
       //Playing sound effect when moving tiles
       val musicfile = new File("./src/bubble.wav")
@@ -67,7 +64,7 @@ class Playing(val display: FunGraphics) {
 
       //Waiting for user input
       if (lastDirection == -1) {
-        while (waitingInput) {
+        while (waitingInput  && isOn) {
           if (lastDirection != -1) waitingInput = false
           Thread.sleep(3)
         }

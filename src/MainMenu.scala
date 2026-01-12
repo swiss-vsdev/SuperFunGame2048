@@ -3,36 +3,31 @@ import hevs.graphics.utils.GraphicsBitmap
 import java.awt.{Color, Font}
 import java.io.File
 import javax.sound.sampled.AudioSystem
-import Start.{lastDirection, newIn, select}
+import Start.{isOn, lastDirection, newIn, select, menuLoc, menuOpen}
 
 class MainMenu(val display: FunGraphics) {
-  val lb: Leaderboard = new Leaderboard(display)
-  var menuLoc: Int = 1
 
   def run(): Unit = {
-    var menuOpen = true
-    lastDirection = -1
-
     display.clear()
-    menuLoc = 1
-
     background()
-    while (menuOpen) {
+
+    while (isOn) {
       menuLocWrite()
       highlightMenu()
       if (select) {
         menuLoc match {
           case 1 => {
             println("Starting Game...")
+            menuOpen = false
             val game: Playing = new Playing(display)
             select = false
-            menuOpen = false
             game.run
           }
           case 2 => {
             println("Opening Leaderboard...")
-            select = false
             menuOpen = false
+            select = false
+            val lb: Leaderboard = new Leaderboard(display)
             lb.run
           }
           case 3 => {
@@ -82,25 +77,24 @@ class MainMenu(val display: FunGraphics) {
   }
 
   def highlightMenu(): Unit = {
-    menuLoc match {
-      case 1 => {
-        playSelected()
+      menuLoc match {
+        case 1 => {
+          playSelected()
+        }
+        case 2 => {
+          leaderBoardSelected()
+        }
+        case 3 => {
+          quitSelected()
+        }
+        case _ => {
+        }
       }
-      case 2 => {
-        leaderBoardSelected()
-      }
-      case 3 => {
-        quitSelected()
-      }
-      case _ => {
-      }
-    }
   }
 
   def playSelected(): Unit = {
     display.clear()
     background()
-
     while (!newIn) {
       for (i <- 0 to 221 by 5) {
         if (!newIn) {

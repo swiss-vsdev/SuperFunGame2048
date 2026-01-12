@@ -1,3 +1,4 @@
+import Start.isOn
 import hevs.graphics.FunGraphics
 import hevs.graphics.utils.GraphicsBitmap
 import java.awt.{Color, Font}
@@ -8,7 +9,6 @@ import javax.sound.sampled.AudioSystem
 class Leaderboard(val display: FunGraphics) {
 
   def run(): Unit = {
-
     display.clear()
     display.drawString(100, 50, "Leaderboard", Font.MONOSPACED, Font.BOLD, 30, Color.orange)
     val scores: Array[String] = readfile()
@@ -77,19 +77,23 @@ class Leaderboard(val display: FunGraphics) {
     clip.open(audio)
     clip.start()
 
-    while (true) {
-      for (j <- 0 to 364 by 74) {
-        for (i <- 0 to 364) {
-          display.drawPicture((i - j), 560, gb)
-          Thread.sleep(2)
+    while (isOn) {
+      if(isOn) {
+        for (j <- 0 to 364 by 74) {
+          if (isOn) {
+            for (i <- 0 to 364) {
+              display.drawPicture((i - j), 560, gb)
+              Thread.sleep(2)
+            }
+          }
         }
       }
-      Thread.sleep(500)
+      if(isOn) Thread.sleep(500)
     }
 
     clip.stop()
-  }
 
+  }
   def readfile(): Array[String] = {
     val fileName: String = "src/score.txt"
 
@@ -99,7 +103,7 @@ class Leaderboard(val display: FunGraphics) {
 
       var line: String = ""
 
-      while (inputReader.ready()) {
+      while (inputReader.ready() && isOn) {
         line += inputReader.readLine()
       }
 
