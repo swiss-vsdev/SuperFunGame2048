@@ -4,7 +4,6 @@ import java.awt.Color
 import java.awt.Font
 import javax.sound.sampled.AudioSystem
 import java.io.File
-import Console.flush
 
 
 class Board(val display: FunGraphics) {
@@ -21,9 +20,10 @@ class Board(val display: FunGraphics) {
     Array(new GridTile(65, 410, 60, 60), new GridTile(135, 410, 60, 60), new GridTile(205, 410, 60, 60), new GridTile(275, 410, 60, 60)),
   )
 
-  class GridTile(var posX : Int,var posY: Int, var width : Int, var height: Int) {}
+  class GridTile(var posX: Int, var posY: Int, var width: Int, var height: Int) {}
 
   def addNewTile(): Unit = {
+    //Each loop, add a 2 or a 4 randomly on a free tile
     var rand: Int = (math.random() * 10).toInt
     var numToAdd: Int = 2;
     if (rand <= 2) {
@@ -49,6 +49,7 @@ class Board(val display: FunGraphics) {
   }
 
   def getFreeSpacesPosition(): Array[Array[Int]] = {
+    // Get the (x,y) postitions of all empty tiles
     var freeSpaceArray: Array[Array[Int]] = Array.ofDim(getFreeSpacesNumber(), 2)
 
     var freeSpaceArrayIndices: Int = 0;
@@ -66,6 +67,7 @@ class Board(val display: FunGraphics) {
   }
 
   def getFreeSpacesNumber(): Int = {
+    // Search for number of empty tiles
     var freeSpace: Int = 0;
 
     for (x <- mainBoard.indices) {
@@ -79,6 +81,9 @@ class Board(val display: FunGraphics) {
   }
 
   def canMove(): Array[Boolean] = {
+    // Every loop of the game, try on every directions if the board can move (if there is space between the numbers & the
+    // wall and if the number can merge)
+    // Return four Boolean, one for each direction
     val direction: Array[Boolean] = Array(false, false, false, false)
 
     //Bas
@@ -173,6 +178,7 @@ class Board(val display: FunGraphics) {
   }
 
   def moveTiles(direction: Int) = {
+    // Trigger the movement for the whole board depending on the direction
     // 0 = bas
     // 1 = gauche
     // 2 = haut
@@ -220,12 +226,13 @@ class Board(val display: FunGraphics) {
         }
       }
     }
-    printBoard()
   }
 
-  //Function to process a Line
-  //(you give it a line and it return the processed line after deleting Zeros and merging numbers)
+
   def lineProcessor(line: Array[Int], scoring: Boolean): Array[Int] = {
+    //Function to process a Line
+    //(you give it a line and it return the processed line after deleting Zeros and merging numbers)
+
     var nbr1: Int = line(0)
     var nbr2: Int = line(1)
     var nbr3: Int = line(2)
@@ -259,7 +266,7 @@ class Board(val display: FunGraphics) {
     }
 
     //merging the numbers
-    if(nbr1 != 0 && nbr1 == nbr2){
+    if (nbr1 != 0 && nbr1 == nbr2) {
       nbr1 = nbr1 + nbr2
       if (scoring) {
         scoreValue += nbr1
@@ -283,6 +290,8 @@ class Board(val display: FunGraphics) {
       }
       nbr4 = 0
     }
+
+    //preparing the line to return it
     line(0) = nbr1
     line(1) = nbr2
     line(2) = nbr3
@@ -291,23 +300,20 @@ class Board(val display: FunGraphics) {
     line
   }
 
-  def score(): Int = {
-    scoreValue
-  }
-
   def show() = {
+    // Displays the game
     val nbrSize: Int = 40
     val nbrColor: Color = Color.white
-    val oneDigitLength : Array[Int] = Array[Int](82,152,222,292)
-    val oneDigitHeight : Array[Int] = Array[Int](245,315,385,455)
+    val oneDigitLength: Array[Int] = Array[Int](82, 152, 222, 292)
+    val oneDigitHeight: Array[Int] = Array[Int](245, 315, 385, 455)
 
     display.clear()
     getGrid()
 
     //Drawing the numbers on the Board
-    for(x <- 0 until 4){
-      for(y <- 0 until 4){
-        if(mainBoard(x)(y) != 0){
+    for (x <- 0 until 4) {
+      for (y <- 0 until 4) {
+        if (mainBoard(x)(y) != 0) {
           display.drawString(nbrCoordinates(mainBoard(x)(y), oneDigitLength(y)), nbrHeight(mainBoard(x)(y), oneDigitHeight(x)), s"${mainBoard(x)(y)}", nbrColor, nbrSizeValue(mainBoard(x)(y), nbrSize))
         }
       }
@@ -328,8 +334,8 @@ class Board(val display: FunGraphics) {
     display.drawFillRect(55, 190, 290, 290)
 
     //Drawing the Grid with Fun Graphics
-    for(x <- 0 until 4){
-      for(y <- 0 until 4){
+    for (x <- 0 until 4) {
+      for (y <- 0 until 4) {
         display.setColor(caseColor(mainBoard(x)(y)))
         display.drawFillRect(gridCoordinates(x)(y).posX, gridCoordinates(x)(y).posY, gridCoordinates(x)(y).width, gridCoordinates(x)(y).height)
       }
@@ -337,6 +343,7 @@ class Board(val display: FunGraphics) {
   }
 
   private def caseColor(in: Int): Color = {
+    // Give the color for the cases, depend of the number printed on it
     in match {
       case 0 => Color.lightGray
       case 2 => new Color(227, 184, 43)
@@ -364,6 +371,7 @@ class Board(val display: FunGraphics) {
   }
 
   private def nbrCoordinates(in: Int, oneDigit: Int): Int = {
+    //Help to print the numbers in the middle of the tiles
     if (in > 1000) {
       return oneDigit - 12
     } else if (in > 100) {
@@ -376,6 +384,7 @@ class Board(val display: FunGraphics) {
   }
 
   private def nbrSizeValue(in: Int, oneDigit: Int): Int = {
+    //Manage the width of fonts for number printing
     if (in > 1000) {
       return oneDigit - 20
     } else if (in > 100) {
@@ -386,6 +395,7 @@ class Board(val display: FunGraphics) {
   }
 
   private def nbrHeight(in: Int, oneDigit: Int): Int = {
+    //Manage the heigt of fonts for number printing
     if (in > 1000) {
       return oneDigit - 7
     } else if (in > 100) {
@@ -396,6 +406,7 @@ class Board(val display: FunGraphics) {
   }
 
   def winner() = {
+    // Show a winning picture when the player reach 2048
     //Initializing the variable highestValue
     var highestValue: Int = 0
     //Navigating the entire ArrayOfDim
@@ -408,23 +419,24 @@ class Board(val display: FunGraphics) {
       if (highestValue == 2048 && isAWinner == false) {
         isAWinner = true
         println("WINNER !")
-        val gb = new GraphicsBitmap("/winner.jpg")
+        val gb = new GraphicsBitmap("/Assets/winner.jpg")
         display.drawPicture(200, 300, gb)
         Thread.sleep(2000)
       }
     }
   }
 
-  //Yes we know that the name of this function is not optimal but it's for the joke
   def looooooooooser() = {
+    //Yes we know that the name of this function is not optimal but it's for the joke (dont forget the fun in -FUN-GRAPHICS)
+    //Play a Sound, Show a picture and pause the game
     val lbwrite = new Leaderboard(display)
     lbwrite.writefile(username, scoreValue)
     display.clear()
-    val gb = new GraphicsBitmap("/looser.jpg")
+    val gb = new GraphicsBitmap("/Assets/looser.jpg")
     display.drawPicture(200, 300, gb)
     display.drawString(130, 550, s"Score : $scoreValue", Font.MONOSPACED, Font.BOLD, 30, Color.white)
 
-    val musicfile = new File("./src/game-over.wav")
+    val musicfile = new File("./src/Assets/game-over.wav")
     val clip = AudioSystem.getClip()
     val audio = AudioSystem.getAudioInputStream(musicfile)
     clip.open(audio)
@@ -437,6 +449,7 @@ class Board(val display: FunGraphics) {
   }
 
   def printBoard(): Unit = {
+    //Print the board in the Terminal (not used anymore but really usefull to debug)
     println("Board = ______________________")
     for (x <- mainBoard.indices) {
       println(mainBoard(x).mkString("/"))

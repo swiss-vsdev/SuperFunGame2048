@@ -29,7 +29,7 @@ class Playing(val display: FunGraphics) {
     while (game.isRunning && isOn) {
 
       //Playing sound effect when moving tiles
-      val musicfile = new File("./src/bubble.wav")
+      val musicfile = new File("./src/Assets/bubble.wav")
       val clip = AudioSystem.getClip()
       val audio = AudioSystem.getAudioInputStream(musicfile)
       clip.open(audio)
@@ -37,12 +37,10 @@ class Playing(val display: FunGraphics) {
 
 
       //Test all 4 directions and block the impossible ones
-
       if (lastDirection >= 0 && lastDirection <= 4) {
         if (allowedDirections(lastDirection) == true) {
           if (lastDirection != -1) game.moveTiles(lastDirection)
           //& if(moveTiles to direction is allowed)
-          game.score()
           game.winner()
           game.addNewTile()
           game.show()
@@ -62,7 +60,7 @@ class Playing(val display: FunGraphics) {
 
       //Waiting for user input
       if (lastDirection == -1) {
-        while (waitingInput  && isOn) {
+        while (waitingInput && isOn) {
           if (lastDirection != -1) waitingInput = false
           Thread.sleep(3)
         }

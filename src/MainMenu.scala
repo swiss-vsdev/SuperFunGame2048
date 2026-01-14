@@ -33,7 +33,7 @@ class MainMenu(val display: FunGraphics) {
           case 3 => {
             println("Exiting game...")
 
-            val musicfile = new File("./src/bye.wav")
+            val musicfile = new File("./src/Assets/bye.wav")
             val clip = AudioSystem.getClip()
             val audio = AudioSystem.getAudioInputStream(musicfile)
             clip.open(audio)
@@ -51,7 +51,7 @@ class MainMenu(val display: FunGraphics) {
 
             clip.stop()
             display.clear()
-            val gb = new GraphicsBitmap("/bonus2.jpg")
+            val gb = new GraphicsBitmap("/Assets/bonus2.jpg")
             display.drawPicture(200, 300, gb)
             Thread.sleep(1000)
             System.exit(0)
@@ -77,22 +77,17 @@ class MainMenu(val display: FunGraphics) {
   }
 
   def highlightMenu(): Unit = {
+    // Blink the selected item in the menu
       menuLoc match {
-        case 1 => {
-          playSelected()
-        }
-        case 2 => {
-          leaderBoardSelected()
-        }
-        case 3 => {
-          quitSelected()
-        }
-        case _ => {
-        }
+        case 1 => {playSelected()}
+        case 2 => {leaderBoardSelected()}
+        case 3 => {quitSelected()}
+        case _ => { }
       }
   }
 
   def playSelected(): Unit = {
+    //Blink The Play button when selected
     display.clear()
     background()
     while (!newIn) {
@@ -108,17 +103,9 @@ class MainMenu(val display: FunGraphics) {
     }
   }
 
-  def background(): Unit = {
-    display.setColor(Color.BLACK)
-    display.drawString(70, 50, "Super Fun 2048", Font.MONOSPACED, Font.BOLD, 30, Color.orange)
-    display.drawString(140, 300, "Play !", Font.MONOSPACED, Font.PLAIN, 30, Color.black)
-    display.drawString(100, 400, "Leaderboard", Font.MONOSPACED, Font.PLAIN, 30, Color.black)
-    display.drawString(160, 500, "Quit", Font.MONOSPACED, Font.PLAIN, 30, Color.black)
-    //Reset lastDirection value
-    lastDirection = -1
-  }
 
   def leaderBoardSelected(): Unit = {
+    //Blink The LeaderBoard button when selected
     display.clear()
     background()
 
@@ -136,6 +123,7 @@ class MainMenu(val display: FunGraphics) {
   }
 
   def quitSelected(): Unit = {
+    //Blink The Quit button when selected
     display.clear()
     background()
 
@@ -150,5 +138,16 @@ class MainMenu(val display: FunGraphics) {
         }
       }
     }
+  }
+
+  def background(): Unit = {
+    //Redraw the Main Menu Background
+    display.setColor(Color.BLACK)
+    display.drawString(70, 50, "Super Fun 2048", Font.MONOSPACED, Font.BOLD, 30, Color.orange)
+    display.drawString(140, 300, "Play !", Font.MONOSPACED, Font.PLAIN, 30, Color.black)
+    display.drawString(100, 400, "Leaderboard", Font.MONOSPACED, Font.PLAIN, 30, Color.black)
+    display.drawString(160, 500, "Quit", Font.MONOSPACED, Font.PLAIN, 30, Color.black)
+    //Reset lastDirection value
+    lastDirection = -1
   }
 }

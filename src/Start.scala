@@ -7,17 +7,16 @@ object Start extends App {
   var lastDirection = -1
   var select = false
   var newIn = false
-  var isOn : Boolean = false
+  var isOn: Boolean = false
   var menuLoc: Int = 1
   var menuOpen = true
   var waitingInput: Boolean = true
   var looser: Boolean = false
-  var restart : Boolean = false
+  var restart: Boolean = false
 
   val kl: KeyListener = new KeyListener {
     override def keyTyped(e: KeyEvent): Unit = {
       newIn = true
-      println("Key Typed")
     }
 
     override def keyPressed(e: KeyEvent): Unit = {
@@ -45,17 +44,16 @@ object Start extends App {
   display.setKeyManager(kl)
   start()
 
-  while(true){
+  while (true) {
     println(restart)
-    if(restart) start()
+    if (restart) start()
   }
 
-  def start() : Unit = {
+  def start(): Unit = {
     newIn = false
     isOn = true
     mainMenu.run()
   }
-
 
 
 }

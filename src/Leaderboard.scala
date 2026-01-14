@@ -27,6 +27,7 @@ class Leaderboard(val display: FunGraphics) {
     var nbrCnt: Int = 1
 
 
+    //Draw the scores on the window
     for (j <- 0 to 1) {
       for (i <- scores.indices) {
         if (i % 2 != 0) {
@@ -56,7 +57,7 @@ class Leaderboard(val display: FunGraphics) {
     }
 
     display.drawString(60, 100, firstLine, Font.MONOSPACED, Font.BOLD, 20, Color.black)
-    println(outString)
+    //println(outString)
 
     val outArray: Array[String] = outString.split(";")
     for (i <- outArray.indices) {
@@ -69,14 +70,15 @@ class Leaderboard(val display: FunGraphics) {
       }
     }
     nbrCnt = 1
-    val gb = new GraphicsBitmap("/bonus.jpg")
+    val gb = new GraphicsBitmap("/Assets/bonus.jpg")
 
-    val musicfile = new File("./src/epicmusic.wav")
+    val musicfile = new File("./src/Assets/epicmusic.wav")
     val clip = AudioSystem.getClip()
     val audio = AudioSystem.getAudioInputStream(musicfile)
     clip.open(audio)
     clip.start()
 
+    //Should I comment this ?? :| or should I let my mate comment it ? :p
     while (isOn) {
       if(isOn) {
         for (j <- 0 to 364 by 74) {
@@ -95,6 +97,7 @@ class Leaderboard(val display: FunGraphics) {
 
   }
   def readfile(): Array[String] = {
+    // Read the leaderboard file on the disk
     val fileName: String = "src/score.txt"
 
     try {
@@ -124,6 +127,7 @@ class Leaderboard(val display: FunGraphics) {
   }
 
   def writefile(username: String, score: Int): Unit = {
+    // Write the leaderboard file on the user drive
     try {
 
       val fs = new FileOutputStream("src/score.txt", true)
