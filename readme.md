@@ -19,6 +19,19 @@ It's not that easy and it requires a bit of strategy.
 The biggest number you can do is 131072 but don't worry : You will not :) !
 You think you can ? Prove it !
 
+## After Git Clone (IntelliJ Setup)
+
+1. Right-click `src` folder → **Mark Directory as** → **Sources Root** (turns blue)
+2. **Add FunGraphics as Library**:
+    - Right-click on `fun-Graphics-1.5.20.jar` → **Add as Library...** → **OK** (don't change anything, just click OK)
+3. Open the object `Start` in the `src` folder → **Setup Scala SDK** (Top right corner) → (Select scala 2.13.16 in the dropdown menu) → **OK**
+4. Stay in `Start` → **Run**
+
+## Dependencies
+- Scala 2.13.16
+- Java 17
+- FunGraphics 1.5.20
+
 
 ## Screenshots : 
 
