@@ -4,16 +4,6 @@ import java.awt.event.{KeyEvent, KeyListener}
 object Start extends App {
   val display = new FunGraphics(400, 600, "Super Fun 2048")
   val mainMenu = new MainMenu(display)
-  var lastDirection = -1
-  var select = false
-  var newIn = false
-  var isOn: Boolean = false
-  var menuLoc: Int = 1
-  var menuOpen = true
-  var waitingInput: Boolean = true
-  var looser: Boolean = false
-  var restart: Boolean = false
-
   val kl: KeyListener = new KeyListener {
     override def keyTyped(e: KeyEvent): Unit = {
       newIn = true
@@ -32,6 +22,7 @@ object Start extends App {
         case 27 => {
           isOn = false
           restart = true
+          looser = false
         }
         case _ => ()
       }
@@ -40,12 +31,20 @@ object Start extends App {
     override def keyReleased(e: KeyEvent): Unit = {
     }
   }
+  var lastDirection = -1
+  var select = false
+  var newIn = false
+  var isOn: Boolean = false
+  var menuLoc: Int = 1
+  var menuOpen = true
+  var waitingInput: Boolean = true
+  var looser: Boolean = false
+  var restart: Boolean = false
 
   display.setKeyManager(kl)
   start()
 
   while (true) {
-    println(restart)
     if (restart) start()
   }
 
@@ -54,6 +53,4 @@ object Start extends App {
     isOn = true
     mainMenu.run()
   }
-
-
 }

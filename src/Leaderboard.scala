@@ -5,9 +5,7 @@ import java.awt.{Color, Font}
 import java.io.{BufferedReader, File, FileNotFoundException, FileOutputStream, FileReader, PrintWriter}
 import javax.sound.sampled.AudioSystem
 
-
 class Leaderboard(val display: FunGraphics) {
-
   def run(): Unit = {
     display.clear()
     display.drawString(100, 50, "Leaderboard", Font.MONOSPACED, Font.BOLD, 30, Color.orange)
@@ -27,7 +25,7 @@ class Leaderboard(val display: FunGraphics) {
     var nbrCnt: Int = 1
 
 
-    //Draw the scores on the window
+    //Moving all the scores / usernames to variables
     for (j <- 0 to 1) {
       for (i <- scores.indices) {
         if (i % 2 != 0) {
@@ -56,8 +54,9 @@ class Leaderboard(val display: FunGraphics) {
       }
     }
 
+    // Generation of the leaderboard display
+
     display.drawString(60, 100, firstLine, Font.MONOSPACED, Font.BOLD, 20, Color.black)
-    //println(outString)
 
     val outArray: Array[String] = outString.split(";")
     for (i <- outArray.indices) {
@@ -70,8 +69,9 @@ class Leaderboard(val display: FunGraphics) {
       }
     }
     nbrCnt = 1
-    val gb = new GraphicsBitmap("/Assets/bonus.jpg")
 
+    //Generates the animated image and the epic music in the background
+    val gb = new GraphicsBitmap("/Assets/bonus.jpg")
     val musicfile = new File("./src/Assets/epicmusic.wav")
     val clip = AudioSystem.getClip()
     val audio = AudioSystem.getAudioInputStream(musicfile)
@@ -80,7 +80,7 @@ class Leaderboard(val display: FunGraphics) {
 
     //Should I comment this ?? :| or should I let my mate comment it ? :p
     while (isOn) {
-      if(isOn) {
+      if (isOn) {
         for (j <- 0 to 364 by 74) {
           if (isOn) {
             for (i <- 0 to 364) {
@@ -90,12 +90,11 @@ class Leaderboard(val display: FunGraphics) {
           }
         }
       }
-      if(isOn) Thread.sleep(500)
+      if (isOn) Thread.sleep(500)
     }
-
     clip.stop()
-
   }
+
   def readfile(): Array[String] = {
     // Read the leaderboard file on the disk
     val fileName: String = "src/score.txt"
@@ -120,7 +119,7 @@ class Leaderboard(val display: FunGraphics) {
         val out = new Array[String](0)
         out
       case e: Exception =>
-        println(s"Something bad happened during read ${e.getMessage()}")
+        println(s"Something wrong happened during reading the file ${e.getMessage()}")
         val out = new Array[String](0)
         out
     }

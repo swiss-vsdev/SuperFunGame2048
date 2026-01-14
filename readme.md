@@ -20,16 +20,48 @@ The biggest number you can do is 131072 but don't worry : You will not :) !
 You think you can ? Prove it !
 
 
-## Screen Shots : 
-Please look inside of /screenshots folder
-Thx to you
+## Screenshots : 
 
+![alt text](https://github.com/swiss-vsdev/SuperFunGame2048/blob/master/screenshots/Gimme%20your%20name%20my%20good%20sir.png?raw=true)
+Game asking for a username before starting to enable the recording of your score
 
-## Code Structure : //Only main class, object and methods
+![alt text](https://github.com//swiss-vsdev/SuperFunGame2048/blob/master/screenshots/a%20boring%20screenshot.png?raw=true)
+Image of the game while it's playing
 
-The main Object is Start
+![alt text](https://github.com/swiss-vsdev/SuperFunGame2048/blob/master/screenshots/Why%20is%20Gab%20everywhere%20%3F%3F.png?raw=true)
+Game Leaderboard where you can see if you are better than me
+
+## Detailled instructions for use
+
+To start a game you have to first open the game into IntelliJ. You can then start the main Object **Start**.
+
+You can navigate through the menus and play the game using the **W A S D** keys and the space bar to select.
+
+- To start playing
+
+  - Select "PLAY" in the menu (using the space bar)
+  - Give a new username in the window and press "OK"
+  - ENJOY ! (Play with W A S D)
+  
+- To check the leaderboard
+
+  - Go back to the menu by hitting the "ESC" key
+  - Select "Leaderboard" in the menu (using the space bar)
+  - Check it out !
+  
+- To exit out of the game
+
+  - Go back to the menu by hitting the "ESC" key
+  - Select "Quit" in the menu (using the space bar)
+  - See you soon !
+
+**You can go back to the main menu at anytime by hitting the "ESC" key**
+
+## Code Structure : (Only main class, object and methods)
+
+The main Object is **Start**
 - The key Listener is there
-- - It catch the directions and the Esc key
+  - It catch the directions and the Esc key
 - It open the Main menu
 
 The MainMenu Class show and manage the MainMenu
@@ -48,4 +80,4 @@ The Board Class is the main class of the game
 - canMove() Verify the directions on which the player can go
 - addNewTile() Each loop, add a 2 or a 4 randomly on a free tile
 
-The leaderBoard affiche les 5 meilleurs score inscrits dans le fichier leaderboard (ajoutés à chaque jeu)
+The leaderboard shows the 5 best scores written in the score.txt file (added at each game)

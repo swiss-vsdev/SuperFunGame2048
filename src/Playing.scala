@@ -1,12 +1,9 @@
 import Start.{isOn, lastDirection, waitingInput, looser}
 import hevs.graphics.FunGraphics
-
 import java.io.File
 import javax.sound.sampled.AudioSystem
 
 class Playing(val display: FunGraphics) {
-
-
   def run(): Unit = {
     display.clear()
 
@@ -26,7 +23,7 @@ class Playing(val display: FunGraphics) {
     var allowedDirections = game.canMove()
 
     //Game Loop
-    while (game.isRunning && isOn) {
+    while (isOn) {
 
       //Playing sound effect when moving tiles
       val musicfile = new File("./src/Assets/bubble.wav")
@@ -34,7 +31,6 @@ class Playing(val display: FunGraphics) {
       val audio = AudioSystem.getAudioInputStream(musicfile)
       clip.open(audio)
       clip.start()
-
 
       //Test all 4 directions and block the impossible ones
       if (lastDirection >= 0 && lastDirection <= 4) {
@@ -51,6 +47,7 @@ class Playing(val display: FunGraphics) {
           //If no direction is possible it means that you loose
           //We totally block the game in this case
           looser = true
+          println("Looser")
           game.looooooooooser()
         }
       }

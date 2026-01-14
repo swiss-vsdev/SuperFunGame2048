@@ -5,13 +5,7 @@ import java.awt.Font
 import javax.sound.sampled.AudioSystem
 import java.io.File
 
-
 class Board(val display: FunGraphics) {
-  var mainBoard: Array[Array[Int]] = Array.ofDim(4, 4)
-  var scoreValue: Int = 0
-  var username: String = ""
-  var isAWinner: Boolean = false
-
   //Generic Coordinates for the tiles drawing
   val gridCoordinates: Array[Array[GridTile]] = Array(
     Array(new GridTile(65, 200, 60, 60), new GridTile(135, 200, 60, 60), new GridTile(205, 200, 60, 60), new GridTile(275, 200, 60, 60)),
@@ -19,12 +13,14 @@ class Board(val display: FunGraphics) {
     Array(new GridTile(65, 340, 60, 60), new GridTile(135, 340, 60, 60), new GridTile(205, 340, 60, 60), new GridTile(275, 340, 60, 60)),
     Array(new GridTile(65, 410, 60, 60), new GridTile(135, 410, 60, 60), new GridTile(205, 410, 60, 60), new GridTile(275, 410, 60, 60)),
   )
-
-  class GridTile(var posX: Int, var posY: Int, var width: Int, var height: Int) {}
+  var mainBoard: Array[Array[Int]] = Array.ofDim(4, 4)
+  var scoreValue: Int = 0
+  var username: String = ""
+  var isAWinner: Boolean = false
 
   def addNewTile(): Unit = {
     //Each loop, add a 2 or a 4 randomly on a free tile
-    var rand: Int = (math.random() * 10).toInt
+    val rand: Int = (math.random() * 10).toInt
     var numToAdd: Int = 2;
     if (rand <= 2) {
       numToAdd = 4
@@ -38,19 +34,17 @@ class Board(val display: FunGraphics) {
       rand2 = 15
     }
 
-    if (freeSN <= 0) { // Vérifier si c'est possible de faire un move, dans ce cas pas de looser mais pas de score+ non plus
-      //looooooooooser() // Logique de loose ne devrait pas être ici
+    if (freeSN <= 0) { // Check if a move is possible. In that case score increases and the player is not a looser
     } else {
-      var x = getFreeSpacesPosition()(rand2)(0)
-      var y = getFreeSpacesPosition()(rand2)(1)
-
+      val x = getFreeSpacesPosition()(rand2)(0)
+      val y = getFreeSpacesPosition()(rand2)(1)
       mainBoard(x)(y) = numToAdd
     }
   }
 
   def getFreeSpacesPosition(): Array[Array[Int]] = {
     // Get the (x,y) postitions of all empty tiles
-    var freeSpaceArray: Array[Array[Int]] = Array.ofDim(getFreeSpacesNumber(), 2)
+    val freeSpaceArray: Array[Array[Int]] = Array.ofDim(getFreeSpacesNumber(), 2)
 
     var freeSpaceArrayIndices: Int = 0;
     for (x <- mainBoard.indices) {
@@ -81,12 +75,12 @@ class Board(val display: FunGraphics) {
   }
 
   def canMove(): Array[Boolean] = {
-    // Every loop of the game, try on every directions if the board can move (if there is space between the numbers & the
+    // Every loop of the game, try on every direction if the board can move (if there is space between the numbers & the
     // wall and if the number can merge)
     // Return four Boolean, one for each direction
     val direction: Array[Boolean] = Array(false, false, false, false)
 
-    //Bas
+    //Down
     var compareBoard: Array[Array[Int]] = Array.ofDim(4, 4)
     for (i <- 0 to 3) {
       val line: Array[Int] = Array(mainBoard(3)(i), mainBoard(2)(i), mainBoard(1)(i), mainBoard(0)(i));
@@ -108,10 +102,10 @@ class Board(val display: FunGraphics) {
 
     compareBoard = Array.ofDim(4, 4) // Reset Compairing Array
 
-    //Gauche
+    //Left
     for (i <- 0 to 3) {
-      var line: Array[Int] = Array(mainBoard(i)(0), mainBoard(i)(1), mainBoard(i)(2), mainBoard(i)(3));
-      var newLine = lineProcessor(line, false)
+      val line: Array[Int] = Array(mainBoard(i)(0), mainBoard(i)(1), mainBoard(i)(2), mainBoard(i)(3));
+      val newLine = lineProcessor(line, false)
       compareBoard(i)(0) = newLine(0)
       compareBoard(i)(1) = newLine(1)
       compareBoard(i)(2) = newLine(2)
@@ -129,10 +123,10 @@ class Board(val display: FunGraphics) {
 
     compareBoard = Array.ofDim(4, 4) // Reset Compairing Array
 
-    //Haut
+    //Up
     for (i <- 0 to 3) {
-      var line: Array[Int] = Array(mainBoard(0)(i), mainBoard(1)(i), mainBoard(2)(i), mainBoard(3)(i));
-      var newLine = lineProcessor(line, false)
+      val line: Array[Int] = Array(mainBoard(0)(i), mainBoard(1)(i), mainBoard(2)(i), mainBoard(3)(i));
+      val newLine = lineProcessor(line, false)
       compareBoard(0)(i) = newLine(0)
       compareBoard(1)(i) = newLine(1)
       compareBoard(2)(i) = newLine(2)
@@ -148,12 +142,12 @@ class Board(val display: FunGraphics) {
       direction(2) = false
     }
 
-    compareBoard = Array.ofDim(4, 4) // Reset Compairing Array
+    compareBoard = Array.ofDim(4, 4) // Reset Comparing Array
 
-    //Droite
+    //Right
     for (i <- 0 to 3) {
-      var line: Array[Int] = Array(mainBoard(i)(3), mainBoard(i)(2), mainBoard(i)(1), mainBoard(i)(0));
-      var newLine = lineProcessor(line, false)
+      val line: Array[Int] = Array(mainBoard(i)(3), mainBoard(i)(2), mainBoard(i)(1), mainBoard(i)(0));
+      val newLine = lineProcessor(line, false)
       compareBoard(i)(3) = newLine(0)
       compareBoard(i)(2) = newLine(1)
       compareBoard(i)(1) = newLine(2)
@@ -170,19 +164,19 @@ class Board(val display: FunGraphics) {
     }
 
     // Directions :
-    // id 0 = bas
-    // id 1 = gauche
-    // id 2 = haut
-    // id 3 = droite
+    // id 0 = Down
+    // id 1 = Left
+    // id 2 = Up
+    // id 3 = Right
     direction
   }
 
   def moveTiles(direction: Int) = {
     // Trigger the movement for the whole board depending on the direction
-    // 0 = bas
-    // 1 = gauche
-    // 2 = haut
-    // 3 = droite
+    // id 0 = Down
+    // id 1 = Left
+    // id 2 = Up
+    // id 3 = Right
 
     direction match {
       case 0 => { // Bas
@@ -195,7 +189,7 @@ class Board(val display: FunGraphics) {
           mainBoard(0)(i) = newLine(3)
         }
       }
-      case 1 => { // Gauche
+      case 1 => { // Left
         for (i <- 0 to 3) {
           val line: Array[Int] = Array(mainBoard(i)(0), mainBoard(i)(1), mainBoard(i)(2), mainBoard(i)(3));
           val newLine = lineProcessor(line, true)
@@ -205,7 +199,7 @@ class Board(val display: FunGraphics) {
           mainBoard(i)(3) = newLine(3)
         }
       }
-      case 2 => { // Haut
+      case 2 => { // Up
         for (i <- 0 to 3) {
           val line: Array[Int] = Array(mainBoard(0)(i), mainBoard(1)(i), mainBoard(2)(i), mainBoard(3)(i));
           val newLine = lineProcessor(line, true)
@@ -215,7 +209,7 @@ class Board(val display: FunGraphics) {
           mainBoard(3)(i) = newLine(3)
         }
       }
-      case 3 => { // Droite
+      case 3 => { // Right
         for (i <- 0 to 3) {
           val line: Array[Int] = Array(mainBoard(i)(3), mainBoard(i)(2), mainBoard(i)(1), mainBoard(i)(0));
           val newLine = lineProcessor(line, true)
@@ -228,10 +222,9 @@ class Board(val display: FunGraphics) {
     }
   }
 
-
   def lineProcessor(line: Array[Int], scoring: Boolean): Array[Int] = {
     //Function to process a Line
-    //(you give it a line and it return the processed line after deleting Zeros and merging numbers)
+    //(you give it a line, and it returns the processed line after deleting Zeros and merging numbers)
 
     var nbr1: Int = line(0)
     var nbr2: Int = line(1)
@@ -373,39 +366,39 @@ class Board(val display: FunGraphics) {
   private def nbrCoordinates(in: Int, oneDigit: Int): Int = {
     //Help to print the numbers in the middle of the tiles
     if (in > 1000) {
-      return oneDigit - 12
+      oneDigit - 12
     } else if (in > 100) {
-      return oneDigit - 11
+      oneDigit - 11
     } else if (in > 10) {
-      return oneDigit - 12
+      oneDigit - 12
     } else {
-      return oneDigit
+      oneDigit
     }
   }
 
   private def nbrSizeValue(in: Int, oneDigit: Int): Int = {
     //Manage the width of fonts for number printing
     if (in > 1000) {
-      return oneDigit - 20
+      oneDigit - 20
     } else if (in > 100) {
-      return oneDigit - 14
+      oneDigit - 14
     } else {
-      return oneDigit
+      oneDigit
     }
   }
 
   private def nbrHeight(in: Int, oneDigit: Int): Int = {
     //Manage the heigt of fonts for number printing
     if (in > 1000) {
-      return oneDigit - 7
+      oneDigit - 7
     } else if (in > 100) {
-      return oneDigit - 5
+      oneDigit - 5
     } else {
-      return oneDigit
+      oneDigit
     }
   }
 
-  def winner() = {
+  def winner() : Unit  = {
     // Show a winning picture when the player reach 2048
     //Initializing the variable highestValue
     var highestValue: Int = 0
@@ -427,15 +420,20 @@ class Board(val display: FunGraphics) {
   }
 
   def looooooooooser() = {
-    //Yes we know that the name of this function is not optimal but it's for the joke (dont forget the fun in -FUN-GRAPHICS)
+    //Yes we know that the name of this function is not optimal. But it's for the joke (don't forget the fun in -FUN-GRAPHICS)
     //Play a Sound, Show a picture and pause the game
+
+    //Writing the score in the score.txt
     val lbwrite = new Leaderboard(display)
     lbwrite.writefile(username, scoreValue)
+
+    //Generates the image
     display.clear()
     val gb = new GraphicsBitmap("/Assets/looser.jpg")
     display.drawPicture(200, 300, gb)
     display.drawString(130, 550, s"Score : $scoreValue", Font.MONOSPACED, Font.BOLD, 30, Color.white)
 
+    //Reminds you that you are a looser using a sound file
     val musicfile = new File("./src/Assets/game-over.wav")
     val clip = AudioSystem.getClip()
     val audio = AudioSystem.getAudioInputStream(musicfile)
@@ -444,20 +442,8 @@ class Board(val display: FunGraphics) {
     Thread.sleep(clip.getMicrosecondLength / 1000)
     clip.stop()
 
-    Thread.sleep(1000)
+    Thread.sleep(700)
     display.drawString(10, 20, "Press [Esc] key to leave the game", Font.MONOSPACED, Font.BOLD, 15, Color.black)
-  }
-
-  def printBoard(): Unit = {
-    //Print the board in the Terminal (not used anymore but really usefull to debug)
-    println("Board = ______________________")
-    for (x <- mainBoard.indices) {
-      println(mainBoard(x).mkString("/"))
-    }
-  }
-
-  def isRunning(): Boolean = {
-    true
   }
 
   def askUsername(): String = {
@@ -465,4 +451,6 @@ class Board(val display: FunGraphics) {
     println(s"Hi $username !")
     username
   }
+
+  class GridTile(var posX: Int, var posY: Int, var width: Int, var height: Int) {}
 }

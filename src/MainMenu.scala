@@ -12,8 +12,10 @@ class MainMenu(val display: FunGraphics) {
     background()
 
     while (isOn) {
-      menuLocWrite()
-      highlightMenu()
+      menuLocWrite() // Used to save where the user is in the menu
+      highlightMenu() // Used to highlight the button on which the user is
+
+      //If the user selects on of the buttons, it will do it
       if (select) {
         menuLoc match {
           case 1 => {
@@ -33,22 +35,23 @@ class MainMenu(val display: FunGraphics) {
           case 3 => {
             println("Exiting game...")
 
+            //Plays exit music
             val musicfile = new File("./src/Assets/bye.wav")
             val clip = AudioSystem.getClip()
             val audio = AudioSystem.getAudioInputStream(musicfile)
             clip.open(audio)
             clip.start()
+            val time: Long = System.currentTimeMillis() + 7500
 
-            val time : Long = System.currentTimeMillis() + 7500
-
-            while(System.currentTimeMillis() < time){
-              for(i <- 0 to 9){
+            //Shows an exiting gif
+            while (System.currentTimeMillis() < time) {
+              for (i <- 0 to 9) {
                 val gb = new GraphicsBitmap(s"/byeGif/frame_0$i.jpg")
                 display.drawPicture(200, 303, gb)
                 Thread.sleep(15)
               }
             }
-
+            //When the music is done, an image is shown and the game quits with exit code 0
             clip.stop()
             display.clear()
             val gb = new GraphicsBitmap("/Assets/bonus2.jpg")
@@ -62,7 +65,7 @@ class MainMenu(val display: FunGraphics) {
   }
 
   def menuLocWrite(): Unit = {
-    if (newIn) {
+    if (newIn) { //newIn is TRUE when the user presses a key
       lastDirection match {
         case 2 => {
           if (menuLoc == 1) menuLoc = 3 else menuLoc += -1
@@ -78,12 +81,18 @@ class MainMenu(val display: FunGraphics) {
 
   def highlightMenu(): Unit = {
     // Blink the selected item in the menu
-      menuLoc match {
-        case 1 => {playSelected()}
-        case 2 => {leaderBoardSelected()}
-        case 3 => {quitSelected()}
-        case _ => { }
+    menuLoc match {
+      case 1 => {
+        playSelected()
       }
+      case 2 => {
+        leaderBoardSelected()
+      }
+      case 3 => {
+        quitSelected()
+      }
+      case _ => {}
+    }
   }
 
   def playSelected(): Unit = {
