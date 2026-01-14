@@ -4,6 +4,7 @@ import java.awt.event.{KeyEvent, KeyListener}
 object Start extends App {
   val display = new FunGraphics(400, 600, "Super Fun 2048")
   val mainMenu = new MainMenu(display)
+  val showArrayInConsole = true // CHANGE THIS VALUE TO **FALSE** TO HIDE THE BOARD IN THE CONSOLE
   val kl: KeyListener = new KeyListener {
     override def keyTyped(e: KeyEvent): Unit = {
       newIn = true

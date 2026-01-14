@@ -452,5 +452,25 @@ class Board(val display: FunGraphics) {
     username
   }
 
+  override def toString: String = {
+    //Print the board in the Terminal (Ready usefull to debug)
+    val mainLine : String = "Board :\n"
+    var out : String = ""
+    var cnt : Int = 0
+
+    for (x <- mainBoard.indices) {
+      for (y <- mainBoard(x).indices){
+        out += mainBoard(x)(y) + "|"
+        cnt += 1
+        if(cnt == 4){
+          out += "\n"
+          cnt = 0
+        }
+      }
+    }
+    mainLine + out
+  }
+
+
   class GridTile(var posX: Int, var posY: Int, var width: Int, var height: Int) {}
 }

@@ -1,4 +1,4 @@
-import Start.{isOn, lastDirection, waitingInput, looser}
+import Start.{isOn, lastDirection, waitingInput, looser, showArrayInConsole}
 import hevs.graphics.FunGraphics
 import java.io.File
 import javax.sound.sampled.AudioSystem
@@ -24,6 +24,7 @@ class Playing(val display: FunGraphics) {
 
     //Game Loop
     while (isOn) {
+      if(showArrayInConsole) println(game.toString)
 
       //Playing sound effect when moving tiles
       val musicfile = new File("./src/Assets/bubble.wav")

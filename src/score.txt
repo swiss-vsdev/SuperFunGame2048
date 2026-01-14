@@ -1,9 +1,2 @@
 Aurélien;9999;
 Gabriel;1528;
-Gabriel;632;
-Gabriel;548;
-Gabriel;1068;
-Gabriel;1136;
-Gabriel;1000;
-Gabriel;1916;
-Gabriel;708;
