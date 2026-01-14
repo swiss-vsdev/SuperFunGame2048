@@ -36,16 +36,12 @@ class Playing(val display: FunGraphics) {
       clip.start()
 
 
-      //Tester les 4 directions et bloquer les non authorisées
-
-      println("directions :" + allowedDirections.mkString(" / "))
+      //Test all 4 directions and block the impossible ones
 
       if (lastDirection >= 0 && lastDirection <= 4) {
         if (allowedDirections(lastDirection) == true) {
           if (lastDirection != -1) game.moveTiles(lastDirection)
-          //Si aucune direction possible : looser et plus d'actions possibles
-
-          //& if(moveTiles vers direction est authorisé)
+          //& if(moveTiles to direction is allowed)
           game.score()
           game.winner()
           game.addNewTile()
@@ -54,6 +50,8 @@ class Playing(val display: FunGraphics) {
         }
         allowedDirections = game.canMove()
         if (allowedDirections.sameElements(Array(false, false, false, false)) == true && looser == false) {
+          //If no direction is possible it means that you loose
+          //We totally block the game in this case
           looser = true
           game.looooooooooser()
         }

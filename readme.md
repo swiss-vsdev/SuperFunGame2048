@@ -1,56 +1,28 @@
 
+## Super Fun Game 2048 ##
+By Gabriel Zeizer and Aurélien Santi
+
+# Description and *How To Play*
+The game is a basic 2048 game
+You can play the game with arrows W A S D :
+Each one of these keys will throw the tiles to the equivalent direction
+W will send them to the top of the board
+A will send to the left
+S Down
+D Right
+
+When the numbers are throwed to the border, if 2 équivalent numbers touch each other they will merge together
+
+The goal it to make appear the 2048 number on your board.
+
+It's not that easy and it requires a bit of strategy.
+The biggest number you can do is 131072 but don't worry : You will not :) !
+You think you can ? Prove it !
 
 
-# Super Fun Game 2048
+# Screen Shots : 
+Please look inside of /screenshots folder
+Thx to you
 
 
-## Class et méthodes :
-
-### Class Board
-- [x] var ArrayArray(Int) = Array.ofDim(4,4);
-
-## Méthodes
-- [x] addNewTile // génération automatique de UN 2 (80%) ou rarement UN 4 (20%) en position aléatoire (mais sur une case vide) à chaque clic
-
-- [x] mooveTiles(direction)={
-// 0 = bas
-// 1 = gauche
-// 2 = haut
-// 3 = droite
-Calculer le nouvelles positions avec merge
-Si Winner : appeller Winner
-So Looser : appeller Looooooooser
-Appeller addNewTiles
-}
-
-- [ ] score() // incrémenter le score ou faire ça dans mooveTiles
-
-- [ ] show() // clear l’affichage et affiche le nouveau board + le score de manière graphique
-
-- [ ] winner() // Afficher Winner
-
-- [ ] loooooser() // Afficher Looser
-
-
-## Objet Playing
-- [x] new board + appel 2x new tile
-- [x] Ecouter les fleches directionnelles et Board.mooveTiles(direction)
-
-
-## Idées :
-- Leaderboard dans fichier texte
-- 1 VS 1
-- Dino -> si loooser // ()
-
-
-## A faire : 
-- [x] board de 4x4 stocké dans un tableau 2D
-- [x] Algorithme de génération automatique de UN 2 ou rarement UN 4 en position aléatoire (mais sur une case vide) à chaque clic
-- [x] écouter le clavier pour trigger un mouvement au clic des flêches directionnelles
-- [ ] afficher le jeu à l’aide de FunGraphics.py
-- [x] lors du mouvement calculer les nouvelles positions ainsi que les merging
-    - [x] Si le mouvement dans une direction ne permets aucun mouvement ou merging : rien ne se passe (donc pas d'ajout de nouvelle tile aléatoire)
-    - [x] Vérifier si toutes les cases sont occupées et si aucun merging possible : LOOOOOOOOSER
-    - [ ] Si merging : vérifier valeur du merging et BRAVO si 2048
-- [ ] Calcul du score à chaque clic
-- [ ] Affichage du score à l’aide de FunGraphics.py
+# Code Structure : 

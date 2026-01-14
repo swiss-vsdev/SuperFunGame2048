@@ -4,6 +4,8 @@ import java.awt.Color
 import java.awt.Font
 import javax.sound.sampled.AudioSystem
 import java.io.File
+import Console.flush
+
 
 class Board(val display: FunGraphics) {
   var mainBoard: Array[Array[Int]] = Array.ofDim(4, 4)
@@ -99,7 +101,7 @@ class Board(val display: FunGraphics) {
       direction(0) = false
     }
 
-    compareBoard = Array.ofDim(4, 4) // réinitialisation du tableau de comparaison
+    compareBoard = Array.ofDim(4, 4) // Reset Compairing Array
 
     //Gauche
     for (i <- 0 to 3) {
@@ -120,7 +122,7 @@ class Board(val display: FunGraphics) {
       direction(1) = false
     }
 
-    compareBoard = Array.ofDim(4, 4)
+    compareBoard = Array.ofDim(4, 4) // Reset Compairing Array
 
     //Haut
     for (i <- 0 to 3) {
@@ -141,7 +143,7 @@ class Board(val display: FunGraphics) {
       direction(2) = false
     }
 
-    compareBoard = Array.ofDim(4, 4)
+    compareBoard = Array.ofDim(4, 4) // Reset Compairing Array
 
     //Droite
     for (i <- 0 to 3) {
@@ -167,7 +169,6 @@ class Board(val display: FunGraphics) {
     // id 1 = gauche
     // id 2 = haut
     // id 3 = droite
-
     direction
   }
 
@@ -177,29 +178,21 @@ class Board(val display: FunGraphics) {
     // 2 = haut
     // 3 = droite
 
-    var xStart: Int = 0;
-    var xEnd: Int = 3;
-    var yStart: Int = 0;
-    var yEnd: Int = 3;
-
     direction match {
       case 0 => { // Bas
         for (i <- 0 to 3) {
           val line: Array[Int] = Array(mainBoard(3)(i), mainBoard(2)(i), mainBoard(1)(i), mainBoard(0)(i));
           val newLine = lineProcessor(line, true)
-          //println("Line processed = " + newLine)
           mainBoard(3)(i) = newLine(0)
           mainBoard(2)(i) = newLine(1)
           mainBoard(1)(i) = newLine(2)
           mainBoard(0)(i) = newLine(3)
         }
-        //printBoard
       }
       case 1 => { // Gauche
         for (i <- 0 to 3) {
           val line: Array[Int] = Array(mainBoard(i)(0), mainBoard(i)(1), mainBoard(i)(2), mainBoard(i)(3));
           val newLine = lineProcessor(line, true)
-          //println("Line processed = " + newLine)
           mainBoard(i)(0) = newLine(0)
           mainBoard(i)(1) = newLine(1)
           mainBoard(i)(2) = newLine(2)
@@ -210,7 +203,6 @@ class Board(val display: FunGraphics) {
         for (i <- 0 to 3) {
           val line: Array[Int] = Array(mainBoard(0)(i), mainBoard(1)(i), mainBoard(2)(i), mainBoard(3)(i));
           val newLine = lineProcessor(line, true)
-          //println("Line processed = " + newLine)
           mainBoard(0)(i) = newLine(0)
           mainBoard(1)(i) = newLine(1)
           mainBoard(2)(i) = newLine(2)
@@ -221,7 +213,6 @@ class Board(val display: FunGraphics) {
         for (i <- 0 to 3) {
           val line: Array[Int] = Array(mainBoard(i)(3), mainBoard(i)(2), mainBoard(i)(1), mainBoard(i)(0));
           val newLine = lineProcessor(line, true)
-          //println("Line processed = " + newLine)
           mainBoard(i)(3) = newLine(0)
           mainBoard(i)(2) = newLine(1)
           mainBoard(i)(1) = newLine(2)
@@ -229,15 +220,11 @@ class Board(val display: FunGraphics) {
         }
       }
     }
-
-    for (i <- mainBoard.indices) {
-      for (j <- mainBoard(0).indices) {
-
-      }
-    }
-
+    printBoard()
   }
 
+  //Function to process a Line
+  //(you give it a line and it return the processed line after deleting Zeros and merging numbers)
   def lineProcessor(line: Array[Int], scoring: Boolean): Array[Int] = {
     var nbr1: Int = line(0)
     var nbr2: Int = line(1)
@@ -317,7 +304,6 @@ class Board(val display: FunGraphics) {
     display.clear()
     getGrid()
 
-
     //Drawing the numbers on the Board
     for(x <- 0 until 4){
       for(y <- 0 until 4){
@@ -326,7 +312,6 @@ class Board(val display: FunGraphics) {
         }
       }
     }
-
   }
 
   def getGrid(): Unit = {
@@ -370,7 +355,7 @@ class Board(val display: FunGraphics) {
       case 16384 => new Color(0, 0, 255)
       case 32768 => new Color(43, 117, 227)
       case 65536 => new Color(43, 117, 227)
-      case 131072 => new Color(43, 117, 227)
+      case 131072 => new Color(43, 117, 227) // Maximal theoric number on 2048 games of 4x4 Board
       case 262144 => new Color(43, 117, 227)
       case 524288 => new Color(43, 117, 227)
       case 1048576 => new Color(43, 117, 227)
@@ -430,6 +415,7 @@ class Board(val display: FunGraphics) {
     }
   }
 
+  //Yes we know that the name of this function is not optimal but it's for the joke
   def looooooooooser() = {
     val lbwrite = new Leaderboard(display)
     lbwrite.writefile(username, scoreValue)
