@@ -11,6 +11,16 @@ class Board(val display: FunGraphics) {
   var username: String = ""
   var isAWinner: Boolean = false
 
+  //Generic Coordinates for the tiles drawing
+  val gridCoordinates: Array[Array[GridTile]] = Array(
+    Array(new GridTile(65, 200, 60, 60), new GridTile(135, 200, 60, 60), new GridTile(205, 200, 60, 60), new GridTile(275, 200, 60, 60)),
+    Array(new GridTile(65, 270, 60, 60), new GridTile(135, 270, 60, 60), new GridTile(205, 270, 60, 60), new GridTile(275, 270, 60, 60)),
+    Array(new GridTile(65, 340, 60, 60), new GridTile(135, 340, 60, 60), new GridTile(205, 340, 60, 60), new GridTile(275, 340, 60, 60)),
+    Array(new GridTile(65, 410, 60, 60), new GridTile(135, 410, 60, 60), new GridTile(205, 410, 60, 60), new GridTile(275, 410, 60, 60)),
+  )
+
+  class GridTile(var posX : Int,var posY: Int, var width : Int, var height: Int) {}
+
   def addNewTile(): Unit = {
     var rand: Int = (math.random() * 10).toInt
     var numToAdd: Int = 2;
@@ -79,7 +89,7 @@ class Board(val display: FunGraphics) {
       compareBoard(1)(i) = newLine(2)
       compareBoard(0)(i) = newLine(3)
     }
-    if (!compareBoard(0).sameElements(mainBoard(0)) // Si false alors éléments différent donc droit de bouger
+    if (!compareBoard(0).sameElements(mainBoard(0)) // Si One element is not the same after the check the move is possible
       || !compareBoard(1).sameElements(mainBoard(1))
       || !compareBoard(2).sameElements(mainBoard(2))
       || !compareBoard(3).sameElements(mainBoard(3))
@@ -238,12 +248,6 @@ class Board(val display: FunGraphics) {
       return line
     }
 
-    /*println("Before sticking")
-    println("Nbr1 = " + nbr1)
-    println("Nbr2 = " + nbr2)
-    println("Nbr3 = " + nbr3)
-    println("Nbr4 = " + nbr4)*/
-
     // Sticking number to each others and to the top
     for (i <- 0 to 3) {
       if (nbr1 == 0) {
@@ -296,12 +300,6 @@ class Board(val display: FunGraphics) {
     line(1) = nbr2
     line(2) = nbr3
     line(3) = nbr4
-
-    /*println("After sticking")
-    println("Nbr1 = " + nbr1)
-    println("Nbr2 = " + nbr2)
-    println("Nbr3 = " + nbr3)
-    println("Nbr4 = " + nbr4)*/
 
     line
   }
@@ -362,7 +360,7 @@ class Board(val display: FunGraphics) {
     display.setColor(Color.gray)
     display.drawFillRect(55, 190, 290, 290)
 
-    display.setColor(caseColor(mainBoard(0)(0)))
+    /*display.setColor(caseColor(mainBoard(0)(0)))
     display.drawFillRect(65, 200, 60, 60)
     display.setColor(caseColor(mainBoard(0)(1)))
     display.drawFillRect(135, 200, 60, 60)
@@ -393,7 +391,14 @@ class Board(val display: FunGraphics) {
     display.setColor(caseColor(mainBoard(3)(2)))
     display.drawFillRect(205, 410, 60, 60)
     display.setColor(caseColor(mainBoard(3)(3)))
-    display.drawFillRect(275, 410, 60, 60)
+    display.drawFillRect(275, 410, 60, 60)*/
+
+    for(x <- 0 until 4){
+      for(y <- 0 until 4){
+        display.setColor(caseColor(mainBoard(x)(y)))
+        display.drawFillRect(gridCoordinates(x)(y).posX, gridCoordinates(x)(y).posY, gridCoordinates(x)(y).width, gridCoordinates(x)(y).height)
+      }
+    }
   }
 
   private def caseColor(in: Int): Color = {
