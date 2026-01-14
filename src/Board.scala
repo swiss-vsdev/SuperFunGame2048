@@ -311,39 +311,21 @@ class Board(val display: FunGraphics) {
   def show() = {
     val nbrSize: Int = 40
     val nbrColor: Color = Color.white
-    val oneDigitLength1 = 82
-    val oneDigitLength2 = 152
-    val oneDigitLength3 = 222
-    val oneDigitLength4 = 292
-
-    val oneDigitHeight1 = 245
-    val oneDigitHeight2 = 315
-    val oneDigitHeight3 = 385
-    val oneDigitHeight4 = 455
+    val oneDigitLength : Array[Int] = Array[Int](82,152,222,292)
+    val oneDigitHeight : Array[Int] = Array[Int](245,315,385,455)
 
     display.clear()
     getGrid()
 
-    if (mainBoard(0)(0) != 0) display.drawString(nbrCoordinates(mainBoard(0)(0), oneDigitLength1), nbrHeight(mainBoard(0)(0), oneDigitHeight1), s"${mainBoard(0)(0)}", nbrColor, nbrSizeValue(mainBoard(0)(0), nbrSize))
-    if (mainBoard(0)(1) != 0) display.drawString(nbrCoordinates(mainBoard(0)(1), oneDigitLength2), nbrHeight(mainBoard(0)(1), oneDigitHeight1), s"${mainBoard(0)(1)}", nbrColor, nbrSizeValue(mainBoard(0)(1), nbrSize))
-    if (mainBoard(0)(2) != 0) display.drawString(nbrCoordinates(mainBoard(0)(2), oneDigitLength3), nbrHeight(mainBoard(0)(2), oneDigitHeight1), s"${mainBoard(0)(2)}", nbrColor, nbrSizeValue(mainBoard(0)(2), nbrSize))
-    if (mainBoard(0)(3) != 0) display.drawString(nbrCoordinates(mainBoard(0)(3), oneDigitLength4), nbrHeight(mainBoard(0)(3), oneDigitHeight1), s"${mainBoard(0)(3)}", nbrColor, nbrSizeValue(mainBoard(0)(3), nbrSize))
 
-    if (mainBoard(1)(0) != 0) display.drawString(nbrCoordinates(mainBoard(1)(0), oneDigitLength1), nbrHeight(mainBoard(1)(0), oneDigitHeight2), s"${mainBoard(1)(0)}", nbrColor, nbrSizeValue(mainBoard(1)(0), nbrSize))
-    if (mainBoard(1)(1) != 0) display.drawString(nbrCoordinates(mainBoard(1)(1), oneDigitLength2), nbrHeight(mainBoard(1)(1), oneDigitHeight2), s"${mainBoard(1)(1)}", nbrColor, nbrSizeValue(mainBoard(1)(1), nbrSize))
-    if (mainBoard(1)(2) != 0) display.drawString(nbrCoordinates(mainBoard(1)(2), oneDigitLength3), nbrHeight(mainBoard(1)(2), oneDigitHeight2), s"${mainBoard(1)(2)}", nbrColor, nbrSizeValue(mainBoard(1)(2), nbrSize))
-    if (mainBoard(1)(3) != 0) display.drawString(nbrCoordinates(mainBoard(1)(3), oneDigitLength4), nbrHeight(mainBoard(1)(3), oneDigitHeight2), s"${mainBoard(1)(3)}", nbrColor, nbrSizeValue(mainBoard(1)(3), nbrSize))
-
-    if (mainBoard(2)(0) != 0) display.drawString(nbrCoordinates(mainBoard(2)(0), oneDigitLength1), nbrHeight(mainBoard(2)(0), oneDigitHeight3), s"${mainBoard(2)(0)}", nbrColor, nbrSizeValue(mainBoard(2)(0), nbrSize))
-    if (mainBoard(2)(1) != 0) display.drawString(nbrCoordinates(mainBoard(2)(1), oneDigitLength2), nbrHeight(mainBoard(2)(1), oneDigitHeight3), s"${mainBoard(2)(1)}", nbrColor, nbrSizeValue(mainBoard(2)(1), nbrSize))
-    if (mainBoard(2)(2) != 0) display.drawString(nbrCoordinates(mainBoard(2)(2), oneDigitLength3), nbrHeight(mainBoard(2)(2), oneDigitHeight3), s"${mainBoard(2)(2)}", nbrColor, nbrSizeValue(mainBoard(2)(2), nbrSize))
-    if (mainBoard(2)(3) != 0) display.drawString(nbrCoordinates(mainBoard(2)(3), oneDigitLength4), nbrHeight(mainBoard(2)(3), oneDigitHeight3), s"${mainBoard(2)(3)}", nbrColor, nbrSizeValue(mainBoard(2)(3), nbrSize))
-
-    if (mainBoard(3)(0) != 0) display.drawString(nbrCoordinates(mainBoard(3)(0), oneDigitLength1), nbrHeight(mainBoard(3)(0), oneDigitHeight4), s"${mainBoard(3)(0)}", nbrColor, nbrSizeValue(mainBoard(3)(0), nbrSize))
-    if (mainBoard(3)(1) != 0) display.drawString(nbrCoordinates(mainBoard(3)(1), oneDigitLength2), nbrHeight(mainBoard(3)(1), oneDigitHeight4), s"${mainBoard(3)(1)}", nbrColor, nbrSizeValue(mainBoard(3)(1), nbrSize))
-    if (mainBoard(3)(2) != 0) display.drawString(nbrCoordinates(mainBoard(3)(2), oneDigitLength3), nbrHeight(mainBoard(3)(2), oneDigitHeight4), s"${mainBoard(3)(2)}", nbrColor, nbrSizeValue(mainBoard(3)(2), nbrSize))
-    if (mainBoard(3)(3) != 0) display.drawString(nbrCoordinates(mainBoard(3)(3), oneDigitLength4), nbrHeight(mainBoard(3)(3), oneDigitHeight4), s"${mainBoard(3)(3)}", nbrColor, nbrSizeValue(mainBoard(3)(3), nbrSize))
-
+    //Drawing the numbers on the Board
+    for(x <- 0 until 4){
+      for(y <- 0 until 4){
+        if(mainBoard(x)(y) != 0){
+          display.drawString(nbrCoordinates(mainBoard(x)(y), oneDigitLength(y)), nbrHeight(mainBoard(x)(y), oneDigitHeight(x)), s"${mainBoard(x)(y)}", nbrColor, nbrSizeValue(mainBoard(x)(y), nbrSize))
+        }
+      }
+    }
 
   }
 
@@ -360,39 +342,7 @@ class Board(val display: FunGraphics) {
     display.setColor(Color.gray)
     display.drawFillRect(55, 190, 290, 290)
 
-    /*display.setColor(caseColor(mainBoard(0)(0)))
-    display.drawFillRect(65, 200, 60, 60)
-    display.setColor(caseColor(mainBoard(0)(1)))
-    display.drawFillRect(135, 200, 60, 60)
-    display.setColor(caseColor(mainBoard(0)(2)))
-    display.drawFillRect(205, 200, 60, 60)
-    display.setColor(caseColor(mainBoard(0)(3)))
-    display.drawFillRect(275, 200, 60, 60)
-    display.setColor(caseColor(mainBoard(1)(0)))
-    display.drawFillRect(65, 270, 60, 60)
-    display.setColor(caseColor(mainBoard(1)(1)))
-    display.drawFillRect(135, 270, 60, 60)
-    display.setColor(caseColor(mainBoard(1)(2)))
-    display.drawFillRect(205, 270, 60, 60)
-    display.setColor(caseColor(mainBoard(1)(3)))
-    display.drawFillRect(275, 270, 60, 60)
-    display.setColor(caseColor(mainBoard(2)(0)))
-    display.drawFillRect(65, 340, 60, 60)
-    display.setColor(caseColor(mainBoard(2)(1)))
-    display.drawFillRect(135, 340, 60, 60)
-    display.setColor(caseColor(mainBoard(2)(2)))
-    display.drawFillRect(205, 340, 60, 60)
-    display.setColor(caseColor(mainBoard(2)(3)))
-    display.drawFillRect(275, 340, 60, 60)
-    display.setColor(caseColor(mainBoard(3)(0)))
-    display.drawFillRect(65, 410, 60, 60)
-    display.setColor(caseColor(mainBoard(3)(1)))
-    display.drawFillRect(135, 410, 60, 60)
-    display.setColor(caseColor(mainBoard(3)(2)))
-    display.drawFillRect(205, 410, 60, 60)
-    display.setColor(caseColor(mainBoard(3)(3)))
-    display.drawFillRect(275, 410, 60, 60)*/
-
+    //Drawing the Grid with Fun Graphics
     for(x <- 0 until 4){
       for(y <- 0 until 4){
         display.setColor(caseColor(mainBoard(x)(y)))
