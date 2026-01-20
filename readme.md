@@ -41,7 +41,7 @@ Game asking for a username before starting to enable the recording of your score
 ![alt text](https://github.com//swiss-vsdev/SuperFunGame2048/blob/master/screenshots/a%20boring%20screenshot.png?raw=true)
 Image of the game while it's playing
 
-![alt text](https://github.com/swiss-vsdev/SuperFunGame2048/blob/master/screenshots/Why%20is%20Gab%20everywhere%20%3F%3F.png?raw=true)
+![alt text](https://github.com/swiss-vsdev/SuperFunGame2048/blob/master/screenshots/Why%20is%20Gab%20everywhere.png?raw=true)
 Game Leaderboard where you can see if you are better than me
 
 ## Detailled instructions for use
